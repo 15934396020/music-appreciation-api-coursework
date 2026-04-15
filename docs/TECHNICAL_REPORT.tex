@@ -1,0 +1,163 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{titlesec}
+\usepackage{parskip}
+\usepackage{enumitem}
+
+\title{Design and Implementation of a Music Appreciation and Discovery API}
+\author{Manus AI}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\noindent
+\textbf{Module:} XJCO3011 - Web Services and Web Data \\
+\textbf{Project:} Coursework 1 - Individual Web Services API Development Project
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\section{Introduction}
+
+This technical report details the design, implementation, and evaluation of the \textbf{Music Appreciation and Discovery API}, developed as part of the XJCO3011 coursework. The primary aim of this project is to build a robust, database-backed RESTful web service that allows users to explore music metadata and generate interpretive content. 
+
+Rather than focusing on complex audio streaming or machine learning recommendation engines, this project deliberately targets music metadata and user-generated appreciation data (reviews, tags, and collections). This scope ensures a clear, stable, and explainable system architecture that fully satisfies the module's requirement for CRUD functionality while adding analytical value through data aggregation.
+
+\section{Problem Definition and Project Scope}
+
+Music enthusiasts often need a structured way to catalogue their listening experiences, group tracks by mood or genre, and share reviews. The Music Appreciation and Discovery API solves this by providing a backend service where users can:
+\begin{itemize}[noitemsep]
+    \item Browse a curated catalogue of tracks and genres.
+    \item Create, read, update, and delete (CRUD) track reviews.
+    \item Assign descriptive tags to tracks.
+    \item Build and manage personal track collections.
+    \item Retrieve analytical summaries (e.g., top-rated tracks, genre statistics, mood distributions).
+\end{itemize}
+
+\textbf{Out of Scope:} User authentication, audio playback, and external API integration (e.g., Spotify/Last.fm) were excluded to maintain a focused, coursework-appropriate prototype, though the architecture is designed to accommodate these in the future.
+
+\section{Requirements Analysis}
+
+The system was designed to meet the following requirements:
+
+\subsection{Functional Requirements}
+\begin{itemize}[noitemsep]
+    \item \textbf{Core Data Retrieval:} List and filter tracks by title, artist, genre, and mood.
+    \item \textbf{Review Management:} Full CRUD operations for user reviews, including automatic recalculation of a track's average rating.
+    \item \textbf{User Interaction:} Endpoints to create and delete user tags, and to manage track collections (create collection, add/remove items).
+    \item \textbf{Analytics:} Aggregation endpoints to provide insights such as top-rated tracks, genre summaries, and review activity.
+\end{itemize}
+
+\subsection{Non-Functional Requirements}
+\begin{itemize}[noitemsep]
+    \item \textbf{Simplicity and Maintainability:} Clean, modular code structure.
+    \item \textbf{Reliability:} Comprehensive error handling and input validation.
+    \item \textbf{Testability:} High test coverage using automated test suites.
+    \item \textbf{Documentation:} Auto-generated interactive API documentation (Swagger UI) and static PDF documentation.
+\end{itemize}
+
+\section{System Design}
+
+The system follows a standard multi-tier web architecture:
+
+\begin{enumerate}[noitemsep]
+    \item \textbf{Client Layer:} HTTP requests (tested via \texttt{httpx} and Swagger UI).
+    \item \textbf{Routing Layer (FastAPI):} Handles HTTP routing, parameter parsing, and response formatting.
+    \item \textbf{Validation Layer (Pydantic):} Ensures incoming payloads meet strict data type and length constraints.
+    \item \textbf{Data Access Layer (SQLAlchemy ORM):} Maps Python objects to database tables and handles complex queries (e.g., joins and aggregations).
+    \item \textbf{Database (SQLite):} A lightweight, file-based relational database ideal for prototyping.
+\end{enumerate}
+
+\subsection{Data Model}
+The core entities and their relationships are:
+\begin{itemize}[noitemsep]
+    \item \textbf{Genre:} One-to-many relationship with Tracks.
+    \item \textbf{Track:} The central entity. Has one Genre, many Reviews, many UserTags, and can belong to many Collections.
+    \item \textbf{Review:} Belongs to one Track. Contains rating (1-5) and comment text.
+    \item \textbf{UserTag:} Belongs to one Track. Represents a user-defined descriptor.
+    \item \textbf{Collection \& CollectionItem:} A Collection contains many CollectionItems, each linking to a specific Track.
+\end{itemize}
+
+\section{Implementation Details}
+
+\subsection{Technology Stack Justification}
+\begin{itemize}[noitemsep]
+    \item \textbf{FastAPI (0.115.12):} Chosen for its high performance, modern Python type hints, and automatic OpenAPI documentation generation. Its \texttt{lifespan} context manager provides a clean way to handle database initialization and data seeding on startup.
+    \item \textbf{SQLAlchemy (2.0.40):} Selected as the ORM for its powerful querying capabilities, which were essential for building the analytics endpoints without writing raw SQL.
+    \item \textbf{Pydantic (2.11.3):} Used for robust request payload validation (e.g., enforcing review ratings between 1 and 5, and string length limits).
+    \item \textbf{SQLite:} Chosen for its zero-configuration setup, making the repository easily runnable by examiners without requiring a separate database server installation.
+\end{itemize}
+
+\subsection{Key Implementation Features}
+\begin{itemize}[noitemsep]
+    \item \textbf{Lifespan Management:} The application uses FastAPI's modern \texttt{@asynccontextmanager} lifespan event to automatically create database tables and inject 25 seed tracks across 8 genres upon startup.
+    \item \textbf{Dynamic Rating Calculation:} When a review is created, updated, or deleted, a helper function \texttt{\_refresh\_track\_rating} automatically recalculates the track's average rating using SQL aggregation, ensuring data consistency.
+    \item \textbf{Pagination and Filtering:} The \texttt{/tracks} and \texttt{/reviews} endpoints implement offset-based pagination and multiple query filters (e.g., partial string matching using \texttt{ilike}).
+\end{itemize}
+
+\section{Analytics and Added Value}
+
+To elevate the project beyond basic CRUD operations, a dedicated \texttt{/analytics} router was implemented. These endpoints leverage SQLAlchemy's \texttt{func.count}, \texttt{func.avg}, \texttt{group\_by}, and \texttt{outerjoin} features to provide:
+\begin{itemize}[noitemsep]
+    \item \textbf{Top-Rated Tracks:} Ranks tracks based on average rating and review volume.
+    \item \textbf{Genre Summary:} Calculates the total number of tracks and the average rating per genre.
+    \item \textbf{Mood Distribution:} Aggregates tracks by their assigned mood.
+    \item \textbf{Review Activity:} Summarizes the total number of reviews and average ratings submitted by individual reviewers.
+\end{itemize}
+
+These features demonstrate a deeper understanding of relational data querying and provide immediate value to potential frontend dashboard clients.
+
+\section{Testing and Evaluation}
+
+A comprehensive automated test suite was developed using \texttt{pytest} and FastAPI's \texttt{TestClient}. 
+
+\begin{itemize}[noitemsep]
+    \item \textbf{Test Coverage:} The suite contains 48 tests covering all endpoint groups (General, Genres, Tracks, Reviews, Tags, Collections, Analytics, and Validation).
+    \item \textbf{Test Isolation:} A custom \texttt{pytest.fixture} with \texttt{scope="session"} ensures the FastAPI lifespan event is triggered correctly during testing, initializing the in-memory database and seed data. UUIDs are used in test payloads to prevent unique constraint conflicts (e.g., duplicate collection names) across test runs.
+    \item \textbf{Validation Testing:} Edge cases, such as submitting a review with a rating of 6 or an empty collection name, are explicitly tested to ensure the API returns the correct \texttt{422 Unprocessable Entity} status.
+\end{itemize}
+
+All 48 tests currently pass, confirming the system's stability and adherence to the defined requirements.
+
+\section{Limitations and Future Work}
+
+While the current implementation successfully meets the coursework objectives, several limitations exist:
+\begin{enumerate}[noitemsep]
+    \item \textbf{Lack of Authentication:} Currently, any user can delete any review or collection. Implementing OAuth2 with JWT tokens would secure user-specific resources.
+    \item \textbf{Database Scalability:} SQLite is excellent for prototyping but lacks the concurrency support needed for a production environment. Migrating to PostgreSQL or MySQL would be a logical next step.
+    \item \textbf{External Integrations:} The API relies on static seed data. Integrating with external APIs like Spotify or MusicBrainz could dynamically enrich the track catalogue.
+\end{enumerate}
+
+\section{Conclusion}
+
+The Music Appreciation and Discovery API successfully demonstrates the design and implementation of a modern, database-backed web service. By leveraging FastAPI and SQLAlchemy, the project delivers a clean, modular, and fully tested RESTful API. The inclusion of complex analytical queries and robust input validation ensures the system is not only functional but also resilient and explainable, fully satisfying the criteria for the XJCO3011 coursework.
+
+\vspace{2em}
+\hrule
+\vspace{1em}
+
+\section*{GenAI Declaration}
+
+In accordance with the module's GREEN GenAI policy, generative AI tools (specifically Manus AI / LLMs) were utilized integrally throughout this project. 
+
+\textbf{Purposes of GenAI Usage:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Code Generation \& Refactoring:} Assisting in the migration from deprecated \texttt{on\_event("startup")} to modern FastAPI \texttt{lifespan} handlers.
+    \item \textbf{Data Generation:} Creating the comprehensive seed dataset of 25 tracks and 8 genres.
+    \item \textbf{Test Suite Expansion:} Generating edge-case validation tests and resolving session-scope fixture conflicts in \texttt{pytest}.
+    \item \textbf{Documentation:} Drafting the Markdown API documentation and structuring this technical report.
+\end{itemize}
+
+The use of GenAI significantly accelerated the development process, allowing for a greater focus on architectural design, data relationships, and analytical query logic. All AI-generated code was thoroughly reviewed, tested, and manually refined to ensure correctness and alignment with the project goals.
+
+\end{document}
