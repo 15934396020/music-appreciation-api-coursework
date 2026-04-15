@@ -1,0 +1,132 @@
+{
+  "project_info": {
+    "title": "Music Appreciation and Discovery API",
+    "created": 1776246017.0182202,
+    "last_updated": 1776246340.0655668,
+    "total_slides": 10
+  },
+  "slides": [
+    {
+      "id": "slide_1",
+      "state": "edited",
+      "pageNum": 1
+    },
+    {
+      "id": "slide_2",
+      "state": "edited",
+      "pageNum": 2
+    },
+    {
+      "id": "slide_3",
+      "state": "edited",
+      "pageNum": 3
+    },
+    {
+      "id": "slide_4",
+      "state": "edited",
+      "pageNum": 4
+    },
+    {
+      "id": "slide_5",
+      "state": "edited",
+      "pageNum": 5
+    },
+    {
+      "id": "slide_6",
+      "state": "edited",
+      "pageNum": 6
+    },
+    {
+      "id": "slide_7",
+      "state": "edited",
+      "pageNum": 7
+    },
+    {
+      "id": "slide_8",
+      "state": "edited",
+      "pageNum": 8
+    },
+    {
+      "id": "slide_9",
+      "state": "edited",
+      "pageNum": 9
+    },
+    {
+      "id": "slide_10",
+      "state": "edited",
+      "pageNum": 10
+    }
+  ],
+  "outline": [
+    {
+      "id": "slide_1",
+      "title": "Music Appreciation and Discovery API",
+      "summary": "A FastAPI-Powered Music Exploration Service with CRUD, Tags, Collections, and Analytics",
+      "image_plan": "Use a suitable image if needed",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_2",
+      "title": "Music Appreciation Needs a Structured Backend",
+      "summary": "Music listeners interpret tracks personally — but simple catalogues fail to capture that richness",
+      "image_plan": "Use a suitable image if needed",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_3",
+      "title": "Deliberately Scoped for Coursework Quality",
+      "summary": "Strategic scope control ensures a coherent, fully testable system",
+      "image_plan": "Use a suitable image if needed",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_4",
+      "title": "Clean Multi-Tier Architecture Powers the API",
+      "summary": "Client requests flow through four well-separated layers to SQLite",
+      "image_plan": "Use a suitable image if needed",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_5",
+      "title": "Six Core Entities Model the Music Appreciation Domain",
+      "summary": "Genre, Track, Review, UserTag, Collection, and CollectionItem form a coherent relational schema",
+      "image_plan": "Use a suitable image if needed",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_6",
+      "title": "25 Endpoints Deliver Complete API Functionality",
+      "summary": "Seven endpoint groups cover browsing, CRUD, curation, and analytics",
+      "image_plan": "Use a suitable image if needed",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_7",
+      "title": "Live Demonstration Walkthrough",
+      "summary": "A realistic user journey from browsing tracks to viewing analytics",
+      "image_plan": "Use a suitable image if needed",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_8",
+      "title": "Analytics Endpoints Elevate the Project Beyond Basic CRUD",
+      "summary": "Five aggregation endpoints transform raw data into actionable insights",
+      "image_plan": "Use a suitable image if needed",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_9",
+      "title": "48 Automated Tests Confirm System Reliability",
+      "summary": "Comprehensive pytest suite covers all endpoints, edge cases, and validation rules",
+      "image_plan": "Use a suitable image if needed",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_10",
+      "title": "Strengths, Limitations, and Future Directions",
+      "summary": "A coherent, well-tested prototype with clear paths for enhancement",
+      "image_plan": "Use a suitable image if needed",
+      "slide_template_key": ""
+    }
+  ]
+}

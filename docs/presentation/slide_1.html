@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            background-color: #FAFAFA;
+            font-family: 'Inter', sans-serif;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: 1fr auto 1fr;
+            gap: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+        .content-wrapper {
+            grid-column: 2 / 11;
+            grid-row: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .main-title {
+            font-size: 64px;
+            font-weight: 700;
+            color: #18181B;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            line-height: 1.2;
+            margin-bottom: 24px;
+        }
+        .divider {
+            width: 120px;
+            height: 4px;
+            background-color: #D97706;
+            margin-bottom: 32px;
+        }
+        .subtitle {
+            font-size: 32px;
+            font-weight: 400;
+            color: #3F3F46;
+            line-height: 1.4;
+            margin-bottom: 48px;
+        }
+        .details-grid {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 16px 32px;
+            font-size: 20px;
+            color: #3F3F46;
+            font-weight: 400;
+        }
+        .detail-label {
+            font-weight: 700;
+            color: #18181B;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .accent-circle {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background-color: #0369A1;
+            opacity: 0.05;
+            top: -100px;
+            right: -100px;
+            z-index: 0;
+        }
+        .content-wrapper {
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="accent-circle"></div>
+        <div class="content-wrapper">
+            <h1 class="main-title">Music Appreciation<br>and Discovery API</h1>
+            <div class="divider"></div>
+            <h2 class="subtitle">A FastAPI-Powered Music Exploration Service with CRUD, Tags, Collections, and Analytics</h2>
+            
+            <div class="details-grid">
+                <div class="detail-label">Module</div>
+                <div>XJCO3011 — Web Services and Web Data</div>
+                
+                <div class="detail-label">Project Type</div>
+                <div>Individual API Development Coursework</div>
+                
+                <div class="detail-label">Core Tech</div>
+                <div>FastAPI + SQLAlchemy + SQLite</div>
+                
+                <div class="detail-label">Deliverables</div>
+                <div>Working API, 48 automated tests, full documentation</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

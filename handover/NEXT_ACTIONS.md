@@ -6,33 +6,23 @@ The next session should complete these tasks in order.
 
 | Priority | Task | Expected Outcome |
 |---|---|---|
-| 1 | Continue synchronising the remaining local files to the GitHub repository `https://github.com/15934396020/music-appreciation-api-coursework` | The remote repository becomes a fuller mirror of the local stable version |
-| 2 | Upload the remaining local files that are still missing remotely, with priority on `README.md`, `.gitignore`, `scripts/run.sh`, `pytest.ini`, `app/__init__.py`, `app/models/__init__.py`, `docs/API_PLAN.md`, `docs/TECHNICAL_REPORT_PLAN.md`, `docs/PRESENTATION_PLAN.md`, and `handover/OPEN_QUESTIONS.md` | Any new account can continue directly from GitHub without depending on the zip file |
-| 3 | Verify that the remote repository handover files remain consistent with the newest local files after every upload batch | Future accounts do not receive conflicting instructions |
-| 4 | Keep updating `handover/CURRENT_STATUS.md`, `handover/NEXT_ACTIONS.md`, and `handover/SESSION_LOG.md` before ending any session | Multi-account relay remains reliable even when credits run low |
-| 5 | Create another local Git commit after meaningful documentation or code changes | Progress is preserved clearly for coursework workflow and later explanation |
-| 6 | After the remote repository is sufficiently complete, start converting `docs/TECHNICAL_REPORT_PLAN.md` into the actual report draft | Coursework submission materials begin to catch up with implementation progress |
-| 7 | Then prepare the presentation content using `docs/PRESENTATION_PLAN.md` and example API screenshots or sample outputs | Oral presentation preparation stays aligned with the implemented system |
-| 8 | Replace the deprecated startup event with a lifespan implementation when convenient | The codebase becomes cleaner and more future-proof |
+| 1 | Verify GitHub Repository | Check the remote repository at `https://github.com/15934396020/music-appreciation-api-coursework` to ensure all recent commits (including the API documentation PDF, Technical Report PDF, and HTML slides) have been successfully pushed. |
+| 2 | Review Deliverables | Review `docs/API_DOCUMENTATION.pdf` and `docs/TECHNICAL_REPORT.pdf` to ensure they meet the coursework requirements (e.g., max 5 pages for the report, GenAI declaration included). Review the generated HTML slides in `docs/presentation/` to ensure they are ready for the oral examination. |
+| 3 | Prepare for Oral Examination | Use the generated slides to practice the 5-minute presentation. Review the `docs/TECHNICAL_REPORT.pdf` to prepare for the 5-minute Q&A session, focusing on design decisions, testing approach, and GenAI usage. |
+| 4 | Final Submission Preparation | Ensure all required files are ready for submission via Minerva (Technical Report PDF with links, Presentation Slides, and GitHub repository link). |
 
-## Already Synced to GitHub
+## Completed Tasks (Do Not Repeat)
 
-The following items are already available in the remote repository:
-
-1. `README.md`
-2. `handover/FOR_NEXT_ACCOUNT.md`
-3. `handover/CURRENT_STATUS.md`
-4. `handover/NEXT_ACTIONS.md`
-5. `handover/USER_MESSAGE_TEMPLATE.md`
-6. `handover/SESSION_LOG.md`
-7. `requirements.txt`
-8. `app/main.py`
-9. `app/database.py`
-10. `app/models/entities.py`
-11. `app/routers/api.py`
-12. `app/schemas/entities.py`
-13. `app/seed.py`
-14. `tests/test_api.py`
+- [x] Refactored `main.py` to use FastAPI `lifespan` instead of deprecated `on_event("startup")`.
+- [x] Expanded seed data to 25 tracks across 8 genres.
+- [x] Implemented missing endpoints (`GET /genres/{id}`, `DELETE /collections/{id}`).
+- [x] Fixed analytics endpoint return formats to match test expectations.
+- [x] Wrote and passed 48 automated tests using `pytest`.
+- [x] Updated `README.md` with correct project structure and endpoint summary.
+- [x] Generated `API_DOCUMENTATION.md` and converted it to `API_DOCUMENTATION.pdf`.
+- [x] Generated `TECHNICAL_REPORT.md` (including GenAI declaration) and converted it to `TECHNICAL_REPORT.pdf`.
+- [x] Generated 10 HTML presentation slides based on `PRESENTATION_PLAN.md`.
+- [x] Updated `CURRENT_STATUS.md` and `NEXT_ACTIONS.md`.
 
 ## What the User Should Send to a New Account
 

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            background-color: #FAFAFA;
+            font-family: 'Inter', sans-serif;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: 120px 1fr;
+            gap: 20px;
+            overflow: hidden;
+        }
+        .header-area {
+            grid-column: 2 / 12;
+            grid-row: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+        .page-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #18181B;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+        .divider {
+            width: 80px;
+            height: 4px;
+            background-color: #D97706;
+        }
+        .content-area {
+            grid-column: 2 / 12;
+            grid-row: 2;
+            display: grid;
+            grid-template-columns: 5fr 7fr;
+            gap: 60px;
+            padding-top: 40px;
+        }
+        .intro-text {
+            font-size: 24px;
+            font-weight: 400;
+            color: #3F3F46;
+            line-height: 1.6;
+        }
+        .intro-text p {
+            margin-bottom: 24px;
+        }
+        .points-list {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+        .point-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        .data-node {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: #0369A1;
+            flex-shrink: 0;
+            margin-top: 8px;
+        }
+        .point-content {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .point-label {
+            font-size: 20px;
+            font-weight: 700;
+            color: #18181B;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .point-desc {
+            font-size: 20px;
+            font-weight: 400;
+            color: #3F3F46;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="header-area">
+            <h2 class="page-title">Music Appreciation Needs a Structured Backend</h2>
+            <div class="divider"></div>
+        </div>
+        
+        <div class="content-area">
+            <div class="intro-text">
+                <p><strong>Music listeners interpret tracks personally — but simple catalogues fail to capture that richness.</strong></p>
+                <p>Music enthusiasts do more than just listen: they rate, tag, categorise, and curate tracks into meaningful collections.</p>
+                <p>Existing music platforms focus on streaming and recommendation algorithms, but rarely expose structured APIs for user-generated appreciation data.</p>
+            </div>
+            
+            <div class="points-list">
+                <div class="point-item">
+                    <div class="data-node"></div>
+                    <div class="point-content">
+                        <div class="point-label">Problem</div>
+                        <div class="point-desc">No lightweight API exists for structured music appreciation data.</div>
+                    </div>
+                </div>
+                <div class="point-item">
+                    <div class="data-node"></div>
+                    <div class="point-content">
+                        <div class="point-label">Opportunity</div>
+                        <div class="point-desc">Reviews, tags, and collections represent rich user-generated content.</div>
+                    </div>
+                </div>
+                <div class="point-item">
+                    <div class="data-node"></div>
+                    <div class="point-content">
+                        <div class="point-label">Solution</div>
+                        <div class="point-desc">A RESTful API that makes appreciation data first-class citizens.</div>
+                    </div>
+                </div>
+                <div class="point-item">
+                    <div class="data-node"></div>
+                    <div class="point-content">
+                        <div class="point-label">Approach</div>
+                        <div class="point-desc">Focus on metadata and user interaction, not audio streaming.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

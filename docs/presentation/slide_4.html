@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            background-color: #FAFAFA;
+            font-family: 'Inter', sans-serif;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: 120px auto 1fr;
+            gap: 20px;
+            overflow: hidden;
+        }
+        .header-area {
+            grid-column: 2 / 12;
+            grid-row: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+        .page-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #18181B;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+        .divider {
+            width: 80px;
+            height: 4px;
+            background-color: #D97706;
+        }
+        .intro-area {
+            grid-column: 2 / 12;
+            grid-row: 2;
+            padding-top: 12px;
+        }
+        .intro-text {
+            font-size: 20px;
+            font-weight: 400;
+            color: #3F3F46;
+            line-height: 1.6;
+        }
+        .layers-area {
+            grid-column: 2 / 12;
+            grid-row: 3;
+            padding-top: 12px; /* reduced from 30px */
+            display: flex;
+            flex-direction: column;
+            gap: 12px; /* reduced from 16px */
+        }
+        .layer-row {
+            display: grid;
+            grid-template-columns: 3fr 3fr 6fr;
+            background-color: #FFFFFF;
+            border-left: 8px solid #0369A1;
+            padding: 12px 24px; /* reduced vertical padding from 20px to 12px */
+            align-items: center;
+        }
+        .layer-row:nth-child(even) {
+            border-left-color: #D97706;
+        }
+        .layer-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: #18181B;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .layer-tech {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0369A1;
+        }
+        .layer-row:nth-child(even) .layer-tech {
+            color: #D97706;
+        }
+        .layer-desc {
+            font-size: 20px;
+            font-weight: 400;
+            color: #3F3F46;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="header-area">
+            <h2 class="page-title">Clean Multi-Tier Architecture Powers the API</h2>
+            <div class="divider"></div>
+        </div>
+        
+        <div class="intro-area">
+            <p class="intro-text">The system follows a standard multi-tier architecture. HTTP requests are routed by FastAPI, validated by Pydantic schemas, processed through SQLAlchemy ORM queries, and persisted in a SQLite database. This separation of concerns ensures that each layer can be tested, modified, or replaced independently.</p>
+        </div>
+        
+        <div class="layers-area">
+            <div class="layer-row">
+                <div class="layer-name">Routing Layer</div>
+                <div class="layer-tech">FastAPI</div>
+                <div class="layer-desc">Handles 25 endpoint definitions across 7 groups, managing HTTP requests and responses.</div>
+            </div>
+            
+            <div class="layer-row">
+                <div class="layer-name">Validation Layer</div>
+                <div class="layer-tech">Pydantic</div>
+                <div class="layer-desc">Enforces rating ranges (1-5), string lengths, and required fields before processing.</div>
+            </div>
+            
+            <div class="layer-row">
+                <div class="layer-name">Data Access Layer</div>
+                <div class="layer-tech">SQLAlchemy ORM</div>
+                <div class="layer-desc">Manages complex joins and aggregations, mapping Python objects to database tables.</div>
+            </div>
+            
+            <div class="layer-row">
+                <div class="layer-name">Database</div>
+                <div class="layer-tech">SQLite</div>
+                <div class="layer-desc">Provides zero-configuration persistence with 25 seeded tracks injected on startup.</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
