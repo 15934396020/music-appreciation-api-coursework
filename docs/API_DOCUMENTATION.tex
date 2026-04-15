@@ -1,0 +1,438 @@
+\documentclass[11pt,a4paper]{article}
+
+% Packages for styling and formatting
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{titlesec}
+\usepackage{parskip}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{microtype}
+\usepackage{listings}
+
+% Color definitions
+\definecolor{primary}{RGB}{3, 105, 161} % Dark blue
+\definecolor{secondary}{RGB}{217, 119, 6} % Orange/Amber
+\definecolor{darkgray}{RGB}{24, 24, 27}
+\definecolor{lightgray}{RGB}{244, 244, 245}
+\definecolor{getcolor}{RGB}{16, 185, 129} % Green
+\definecolor{postcolor}{RGB}{59, 130, 246} % Blue
+\definecolor{putcolor}{RGB}{245, 158, 11} % Orange
+\definecolor{deletecolor}{RGB}{239, 68, 68} % Red
+\definecolor{codebg}{RGB}{248, 250, 252}
+
+% Hyperref setup
+\hypersetup{
+    colorlinks=true,
+    linkcolor=primary,
+    filecolor=primary,      
+    urlcolor=primary,
+    pdftitle={API Documentation: Music Appreciation API},
+    pdfpagemode=FullScreen,
+}
+
+% Section styling
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{primary}}
+  {\thesection}{1em}{}
+  [\vspace{-0.5ex}\color{secondary}\titlerule]
+
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{darkgray}}
+  {\thesubsection}{1em}{}
+
+% Header and Footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textcolor{darkgray}{\small XJCO3011 Coursework 1}}
+\fancyhead[R]{\textcolor{darkgray}{\small API Documentation}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% Listings setup for JSON
+\lstdefinelanguage{json}{
+    basicstyle=\ttfamily\small,
+    numbers=none,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{codebg},
+    rulecolor=\color{lightgray},
+    stringstyle=\color{primary},
+    keywordstyle=\color{secondary}\bfseries,
+}
+
+% Custom commands for HTTP methods
+\newcommand{\methodGET}{\colorbox{getcolor}{\textcolor{white}{\textbf{GET}}}}
+\newcommand{\methodPOST}{\colorbox{postcolor}{\textcolor{white}{\textbf{POST}}}}
+\newcommand{\methodPUT}{\colorbox{putcolor}{\textcolor{white}{\textbf{PUT}}}}
+\newcommand{\methodDELETE}{\colorbox{deletecolor}{\textcolor{white}{\textbf{DELETE}}}}
+
+\begin{document}
+
+% Title Page
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    
+    {\Huge\bfseries\color{primary} Music Appreciation and Discovery API\par}
+    \vspace{1cm}
+    {\huge\bfseries API Documentation\par}
+    \vspace{1.5cm}
+    
+    {\Large\bfseries XJCO3011 - Web Services and Web Data\par}
+    \vspace{0.5cm}
+    {\large Coursework 1 - Individual Web Services API Development Project\par}
+    
+    \vspace{2cm}
+    
+    {\Large\bfseries Author: Manus AI\par}
+    \vspace{0.5cm}
+    {\large \today\par}
+    
+    \vfill
+    
+    \begin{tcolorbox}[colback=white,colframe=secondary,boxrule=1pt,arc=4pt,width=0.8\textwidth,center]
+    \centering
+    \textbf{Base URL:} \texttt{http://127.0.0.1:8000} \\
+    \textbf{Authentication:} None required for this coursework prototype.
+    \end{tcolorbox}
+    
+    \vspace{1cm}
+\end{titlepage}
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{Overview}
+
+The Music Appreciation and Discovery API is a RESTful web service designed to facilitate the exploration of music tracks, genres, and user-generated content such as reviews, tags, and collections. It provides a robust set of endpoints for data retrieval, CRUD operations, and analytical insights.
+
+This document outlines the available endpoints, their parameters, and expected responses.
+
+\section{Endpoints}
+
+\subsection{1. General}
+
+\subsubsection*{\methodGET \texttt{ /}}
+Returns a welcome message and links to the interactive documentation.
+\begin{itemize}[label=\textcolor{primary}{\textbullet}, noitemsep]
+    \item \textbf{Response (200 OK):}
+\begin{lstlisting}[language=json]
+{
+  "message": "Music Appreciation and Discovery API is running.",
+  "docs": "/docs",
+  "redoc": "/redoc",
+  "version": "0.2.0"
+}
+\end{lstlisting}
+\end{itemize}
+
+\subsubsection*{\methodGET \texttt{ /health}}
+Returns a simple health-check response to verify the API is operational.
+\begin{itemize}[label=\textcolor{primary}{\textbullet}, noitemsep]
+    \item \textbf{Response (200 OK):}
+\begin{lstlisting}[language=json]
+{
+  "status": "ok"
+}
+\end{lstlisting}
+\end{itemize}
+
+\subsection{2. Genres}
+
+\subsubsection*{\methodGET \texttt{ /genres}}
+Retrieves a list of all available music genres, ordered alphabetically.
+\begin{itemize}[label=\textcolor{primary}{\textbullet}, noitemsep]
+    \item \textbf{Response (200 OK):} Array of Genre objects.
+\begin{lstlisting}[language=json]
+[
+  {
+    "id": 1,
+    "name": "Ambient",
+    "description": "Atmospheric and meditative soundscapes..."
+  }
+]
+\end{lstlisting}
+\end{itemize}
+
+\subsubsection*{\methodGET \texttt{ /genres/\{genre\_id\}}}
+Retrieves a specific genre by its ID.
+\begin{itemize}[label=\textcolor{primary}{\textbullet}, noitemsep]
+    \item \textbf{Parameters:} \texttt{genre\_id} (path, integer)
+    \item \textbf{Response (200 OK):} Genre object.
+    \item \textbf{Response (404 Not Found):} If the genre does not exist.
+\end{itemize}
+
+\subsection{3. Tracks}
+
+\subsubsection*{\methodGET \texttt{ /tracks}}
+Retrieves a list of tracks with optional filtering, sorting, and pagination.
+\begin{itemize}[label=\textcolor{primary}{\textbullet}, noitemsep]
+    \item \textbf{Query Parameters:}
+    \begin{itemize}[label=--, noitemsep]
+        \item \texttt{title} (string, optional): Filter by track title (partial match).
+        \item \texttt{artist} (string, optional): Filter by artist name (partial match).
+        \item \texttt{genre} (string, optional): Filter by genre name (partial match).
+        \item \texttt{mood} (string, optional): Filter by mood keyword (partial match).
+        \item \texttt{sort\_by} (string, default="title"): Sort field (\texttt{title}, \texttt{artist}, \texttt{rating}, \texttt{play\_count}).
+        \item \texttt{order} (string, default="asc"): Sort order (\texttt{asc} or \texttt{desc}).
+        \item \texttt{limit} (integer, default=20, max=100): Maximum number of results.
+        \item \texttt{offset} (integer, default=0): Number of results to skip.
+    \end{itemize}
+    \item \textbf{Response (200 OK):} Array of Track objects.
+\end{itemize}
+
+\subsubsection*{\methodGET \texttt{ /tracks/\{track\_id\}}}
+Retrieves a specific track by its ID.
+\begin{itemize}[label=\textcolor{primary}{\textbullet}, noitemsep]
+    \item \textbf{Parameters:} \texttt{track\_id} (path, integer)
+    \item \textbf{Response (200 OK):} Track object including nested genre details.
+    \item \textbf{Response (404 Not Found):} If the track does not exist.
+\end{itemize}
+
+\subsection{4. Reviews}
+
+\subsubsection*{\methodPOST \texttt{ /reviews}}
+Creates a new review for a track.
+\begin{itemize}[label=\textcolor{primary}{\textbullet}, noitemsep]
+    \item \textbf{Request Body:}
+\begin{lstlisting}[language=json]
+{
+  "track_id": 1,
+  "reviewer_name": "John Doe",
+  "rating": 5,
+  "comment": "An absolute masterpiece."
+}
+\end{lstlisting}
+    \item \textbf{Response (201 Created):} The created Review object.
+    \item \textbf{Response (404 Not Found):} If the specified track does not exist.
+    \item \textbf{Response (422 Unprocessable Entity):} If validation fails (e.g., rating not between 1 and 5).
+\end{itemize}
+
+\subsubsection*{\methodGET \texttt{ /reviews}}
+Retrieves a list of reviews with optional filtering and pagination.
+\begin{itemize}[label=\textcolor{primary}{\textbullet}, noitemsep]
+    \item \textbf{Query Parameters:}
+    \begin{itemize}[label=--, noitemsep]
+        \item \texttt{track\_id} (integer, optional): Filter reviews by track ID.
+        \item \texttt{reviewer\_name} (string, optional): Filter by reviewer name (partial match).
+        \item \texttt{min\_rating} (integer, optional): Minimum rating filter (1-5).
+        \item \texttt{limit} (integer, default=20, max=100): Maximum number of results.
+        \item \texttt{offset} (integer, default=0): Number of results to skip.
+    \end{itemize}
+    \item \textbf{Response (200 OK):} Array of Review objects.
+\end{itemize}
+
+\subsubsection*{\methodGET \texttt{ /reviews/\{review\_id\}}}
+Retrieves a specific review by its ID.
+\begin{itemize}[label=\textcolor{primary}{\textbullet}, noitemsep]
+    \item \textbf{Parameters:} \texttt{review\_id} (path, integer)
+    \item \textbf{Response (200 OK):} Review object.
+    \item \textbf{Response (404 Not Found):} If the review does not exist.
+\end{itemize}
+
+\subsubsection*{\methodPUT \texttt{ /reviews/\{review\_id\}}}
+Updates an existing review. Supports partial updates.
+\begin{itemize}[label=\textcolor{primary}{\textbullet}, noitemsep]
+    \item \textbf{Parameters:} \texttt{review\_id} (path, integer)
+    \item \textbf{Request Body:} (All fields optional)
+\begin{lstlisting}[language=json]
+{
+  "rating": 4,
+  "comment": "Updated comment text."
+}
+\end{lstlisting}
+    \item \textbf{Response (200 OK):} The updated Review object.
+    \item \textbf{Response (404 Not Found):} If the review does not exist.
+\end{itemize}
+
+\subsubsection*{\methodDELETE \texttt{ /reviews/\{review\_id\}}}
+Deletes a review by its ID.
+\begin{itemize}[label=\textcolor{primary}{\textbullet}, noitemsep]
+    \item \textbf{Parameters:} \texttt{review\_id} (path, integer)
+    \item \textbf{Response (204 No Content):} Successful deletion.
+    \item \textbf{Response (404 Not Found):} If the review does not exist.
+\end{itemize}
+
+\subsection{5. Tags}
+
+\subsubsection*{\methodPOST \texttt{ /tags}}
+Creates a new user tag for a track.
+\begin{itemize}[label=\textcolor{primary}{\textbullet}, noitemsep]
+    \item \textbf{Request Body:}
+\begin{lstlisting}[language=json]
+{
+  "track_id": 1,
+  "tag_name": "masterpiece",
+  "created_by": "Jane Doe"
+}
+\end{lstlisting}
+    \item \textbf{Response (201 Created):} The created Tag object.
+    \item \textbf{Response (404 Not Found):} If the track does not exist.
+    \item \textbf{Response (409 Conflict):} If the tag already exists for this track.
+\end{itemize}
+
+\subsubsection*{\methodGET \texttt{ /tags}}
+Retrieves a list of user tags, optionally filtered by track.
+\begin{itemize}[label=\textcolor{primary}{\textbullet}, noitemsep]
+    \item \textbf{Query Parameters:} \texttt{track\_id} (integer, optional)
+    \item \textbf{Response (200 OK):} Array of Tag objects.
+\end{itemize}
+
+\subsubsection*{\methodDELETE \texttt{ /tags/\{tag\_id\}}}
+Deletes a user tag by its ID.
+\begin{itemize}[label=\textcolor{primary}{\textbullet}, noitemsep]
+    \item \textbf{Parameters:} \texttt{tag\_id} (path, integer)
+    \item \textbf{Response (204 No Content):} Successful deletion.
+    \item \textbf{Response (404 Not Found):} If the tag does not exist.
+\end{itemize}
+
+\subsection{6. Collections}
+
+\subsubsection*{\methodPOST \texttt{ /collections}}
+Creates a new track collection.
+\begin{itemize}[label=\textcolor{primary}{\textbullet}, noitemsep]
+    \item \textbf{Request Body:}
+\begin{lstlisting}[language=json]
+{
+  "name": "Late Night Study",
+  "description": "Calm tracks for focused work.",
+  "created_by": "Alice"
+}
+\end{lstlisting}
+    \item \textbf{Response (201 Created):} The created Collection object.
+    \item \textbf{Response (409 Conflict):} If a collection with the same name already exists.
+\end{itemize}
+
+\subsubsection*{\methodGET \texttt{ /collections}}
+Retrieves a list of all collections, ordered by creation date.
+\begin{itemize}[label=\textcolor{primary}{\textbullet}, noitemsep]
+    \item \textbf{Response (200 OK):} Array of Collection objects.
+\end{itemize}
+
+\subsubsection*{\methodGET \texttt{ /collections/\{collection\_id\}}}
+Retrieves a specific collection along with its track items.
+\begin{itemize}[label=\textcolor{primary}{\textbullet}, noitemsep]
+    \item \textbf{Parameters:} \texttt{collection\_id} (path, integer)
+    \item \textbf{Response (200 OK):} Collection object including an array of \texttt{items}.
+    \item \textbf{Response (404 Not Found):} If the collection does not exist.
+\end{itemize}
+
+\subsubsection*{\methodPOST \texttt{ /collections/\{collection\_id\}/items}}
+Adds a track to an existing collection.
+\begin{itemize}[label=\textcolor{primary}{\textbullet}, noitemsep]
+    \item \textbf{Parameters:} \texttt{collection\_id} (path, integer)
+    \item \textbf{Request Body:}
+\begin{lstlisting}[language=json]
+{
+  "track_id": 1,
+  "note": "Great opening track."
+}
+\end{lstlisting}
+    \item \textbf{Response (201 Created):} Confirmation message and item details.
+    \item \textbf{Response (404 Not Found):} If the collection or track does not exist.
+    \item \textbf{Response (409 Conflict):} If the track is already in the collection.
+\end{itemize}
+
+\subsubsection*{\methodDELETE \texttt{ /collections/\{collection\_id\}}}
+Deletes a collection and all its items.
+\begin{itemize}[label=\textcolor{primary}{\textbullet}, noitemsep]
+    \item \textbf{Parameters:} \texttt{collection\_id} (path, integer)
+    \item \textbf{Response (204 No Content):} Successful deletion.
+    \item \textbf{Response (404 Not Found):} If the collection does not exist.
+\end{itemize}
+
+\subsubsection*{\methodDELETE \texttt{ /collections/\{collection\_id\}/items/\{item\_id\}}}
+Removes a specific track item from a collection.
+\begin{itemize}[label=\textcolor{primary}{\textbullet}, noitemsep]
+    \item \textbf{Parameters:} 
+    \begin{itemize}[label=--, noitemsep]
+        \item \texttt{collection\_id} (path, integer)
+        \item \texttt{item\_id} (path, integer)
+    \end{itemize}
+    \item \textbf{Response (204 No Content):} Successful deletion.
+    \item \textbf{Response (404 Not Found):} If the collection item does not exist.
+\end{itemize}
+
+\subsection{7. Analytics}
+
+\subsubsection*{\methodGET \texttt{ /analytics/top-rated-tracks}}
+Returns the highest-rated tracks that have at least one review.
+\begin{itemize}[label=\textcolor{primary}{\textbullet}, noitemsep]
+    \item \textbf{Query Parameters:} \texttt{limit} (integer, default=5, max=20)
+    \item \textbf{Response (200 OK):} Array of track summary objects.
+\end{itemize}
+
+\subsubsection*{\methodGET \texttt{ /analytics/genre-summary}}
+Returns a summary of each genre, including track count and average rating.
+\begin{itemize}[label=\textcolor{primary}{\textbullet}, noitemsep]
+    \item \textbf{Response (200 OK):} Array of genre summary objects.
+\end{itemize}
+
+\subsubsection*{\methodGET \texttt{ /analytics/top-tags}}
+Returns the most frequently used tags across all tracks.
+\begin{itemize}[label=\textcolor{primary}{\textbullet}, noitemsep]
+    \item \textbf{Query Parameters:} \texttt{limit} (integer, default=10, max=50)
+    \item \textbf{Response (200 OK):} Array of tag summary objects.
+\end{itemize}
+
+\subsubsection*{\methodGET \texttt{ /analytics/mood-distribution}}
+Returns the distribution of moods across all tracks.
+\begin{itemize}[label=\textcolor{primary}{\textbullet}, noitemsep]
+    \item \textbf{Response (200 OK):} Array of mood summary objects.
+\end{itemize}
+
+\subsubsection*{\methodGET \texttt{ /analytics/review-activity}}
+Returns overall review activity summary and per-reviewer breakdown.
+\begin{itemize}[label=\textcolor{primary}{\textbullet}, noitemsep]
+    \item \textbf{Response (200 OK):} Object containing \texttt{total\_reviews}, \texttt{average\_rating}, and an array of \texttt{reviewers}.
+\end{itemize}
+
+\section{Data Models}
+
+\subsection{Track}
+\begin{lstlisting}[language=json]
+{
+  "id": 1,
+  "title": "Clair de Lune",
+  "artist_name": "Claude Debussy",
+  "album_title": "Suite bergamasque",
+  "duration_seconds": 300,
+  "mood": "dreamy",
+  "play_count": 1500,
+  "average_rating": 4.5,
+  "genre": {
+    "id": 1,
+    "name": "Classical",
+    "description": "..."
+  }
+}
+\end{lstlisting}
+
+\subsection{Review}
+\begin{lstlisting}[language=json]
+{
+  "id": 1,
+  "track_id": 1,
+  "reviewer_name": "John Doe",
+  "rating": 5,
+  "comment": "An absolute masterpiece.",
+  "created_at": "2023-10-27T10:00:00Z",
+  "updated_at": "2023-10-27T10:00:00Z"
+}
+\end{lstlisting}
+
+\end{document}

@@ -12,7 +12,7 @@
 ```
 这是我们的课程项目仓库：https://github.com/15934396020/music-appreciation-api-coursework
 请先阅读仓库里的 handover/FOR_NEXT_ACCOUNT.md，再查看 handover/CURRENT_STATUS.md 和 handover/NEXT_ACTIONS.md。
-这个项目是 Music Appreciation and Discovery API，目前代码、测试、文档、幻灯片都已完成。
+这个项目是 Music Appreciation and Discovery API，目前代码、测试、文档（LaTeX PDF）、幻灯片都已完成。
 请不要重做已经完成的部分，而是直接按照 NEXT_ACTIONS.md 继续推进。
 本轮结束前，请同步更新交接文件，方便下一个账号继续接力。
 ```
@@ -40,17 +40,7 @@
 2. 创建 `docs/GENAI_CONVERSATION_LOG.md`，记录关键的 AI 辅助开发对话摘要。
 3. 转换为 PDF：`docs/GENAI_CONVERSATION_LOG.pdf`。
 
-### Priority 3: 确认技术报告 LaTeX 版本编译正确
-
-**原因：** LaTeX 版本的技术报告已生成（`docs/TECHNICAL_REPORT.tex`），需要确认编译后的 PDF 排版正确且不超过 5 页。
-
-**操作步骤：**
-1. 编译 `docs/TECHNICAL_REPORT.tex`（已安装 texlive）。
-2. 检查生成的 PDF 是否为 4-5 页。
-3. 确认 GenAI Declaration 部分完整。
-4. 如果需要，在报告中添加 GitHub 仓库链接和 API 文档链接。
-
-### Priority 4: 准备 Minerva 提交材料清单
+### Priority 3: 准备 Minerva 提交材料清单
 
 **原因：** 所有材料需要通过 Minerva 平台提交。
 
@@ -58,13 +48,13 @@
 
 | 编号 | 文件 | 当前状态 | 备注 |
 |---|---|---|---|
-| 1 | Technical Report (PDF) | ✅ 已完成 `docs/TECHNICAL_REPORT.pdf` | 需包含 GitHub 链接、API 文档链接、演示链接、GenAI 声明 |
-| 2 | Presentation Slides (PPTX) | ❌ 待完成 | 需从 HTML 转换为 PPTX |
-| 3 | GitHub Repository | ✅ 已推送 | `https://github.com/15934396020/music-appreciation-api-coursework` |
-| 4 | API Documentation (PDF) | ✅ 已完成 `docs/API_DOCUMENTATION.pdf` | 需在 README.md 中引用 |
+| 1 | Technical Report (PDF, LaTeX) | ✅ 已完成 `docs/TECHNICAL_REPORT.pdf` | 5 页，含封面、彩色标题、GenAI 声明 |
+| 2 | API Documentation (PDF, LaTeX) | ✅ 已完成 `docs/API_DOCUMENTATION.pdf` | 8 页，含目录、HTTP 方法彩色标签 |
+| 3 | Presentation Slides (PPTX) | ❌ 待完成 | 需从 HTML 转换为 PPTX |
+| 4 | GitHub Repository | ✅ 已推送 | `https://github.com/15934396020/music-appreciation-api-coursework` |
 | 5 | GenAI Conversation Log | ❌ 待完成 | 课程要求附上对话日志 |
 
-### Priority 5: 准备口头答辩
+### Priority 4: 准备口头答辩
 
 **原因：** 口头答辩占总分 25%（15% 演示 + 10% Q&A）。
 
@@ -84,7 +74,7 @@
 - GenAI 如何使用的？（代码重构、数据生成、测试扩展、文档撰写）
 - 如何确保数据一致性？（`_refresh_track_rating` 自动重算平均分）
 
-### Priority 6（可选）: 增强项目以冲击更高分数
+### Priority 5（可选）: 增强项目以冲击更高分数
 
 以下改进可以帮助项目从 70-79 分段提升到更高：
 
@@ -106,9 +96,8 @@
 - [x] 扩充种子数据至 25 首曲目、8 个流派
 - [x] 实现 25 个 API 端点（General, Genres, Tracks, Reviews, Tags, Collections, Analytics）
 - [x] 编写并通过 48 个自动化测试
-- [x] 生成 `API_DOCUMENTATION.md` 和 `API_DOCUMENTATION.pdf`
-- [x] 撰写 `TECHNICAL_REPORT.md` 和 `TECHNICAL_REPORT.pdf`（含 GenAI 声明）
-- [x] 生成 `TECHNICAL_REPORT.tex` LaTeX 版本
+- [x] 生成 `API_DOCUMENTATION.tex` 并编译为美观的 `API_DOCUMENTATION.pdf`（8 页，含目录和 HTTP 方法彩色标签）
+- [x] 生成 `TECHNICAL_REPORT.tex` 并编译为美观的 `TECHNICAL_REPORT.pdf`（5 页，含封面和 GenAI 声明框）
 - [x] 生成 10 页 HTML 演示幻灯片
 - [x] 更新 `README.md`
 - [x] 推送所有代码到 GitHub
