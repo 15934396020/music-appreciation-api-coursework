@@ -2,173 +2,172 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;800&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         .slide-container {
             width: 1280px;
             min-height: 720px;
-            background-color: #FAFAFA;
+            background-color: #F8FAFC;
+            color: #475569;
             font-family: 'Inter', sans-serif;
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            grid-template-rows: 120px auto 1fr;
-            gap: 20px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
             overflow: hidden;
         }
-        .header-area {
-            grid-column: 2 / 12;
-            grid-row: 1;
+
+        /* Header Section */
+        .header {
+            background-color: #0F172A;
+            padding-top: 40px;
+            padding-left: 60px;
+            padding-right: 60px;
+            min-height: 160px;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
+            justify-content: flex-start;
         }
-        .page-title {
+
+        h1 {
+            font-weight: 800;
             font-size: 32px;
-            font-weight: 700;
-            color: #18181B;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 16px;
+            color: #F8FAFC;
+            margin-bottom: 12px;
         }
-        .divider {
-            width: 80px;
-            height: 4px;
-            background-color: #D97706;
-        }
-        .intro-area {
-            grid-column: 2 / 12;
-            grid-row: 2;
-            padding-top: 16px;
-        }
-        .intro-text {
+
+        h2 {
+            font-weight: 300;
             font-size: 20px;
-            font-weight: 400;
-            color: #3F3F46;
-            line-height: 1.6;
+            color: #94A3B8;
         }
-        .test-grid {
-            grid-column: 2 / 12;
-            grid-row: 3;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px 40px;
-            padding-top: 16px;
-        }
-        .test-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-            background-color: #FFFFFF;
-            padding: 16px 20px;
-            border-top: 3px solid #E4E4E7;
-        }
-        .test-count {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background-color: #0369A1;
-            color: #FAFAFA;
-            font-size: 16px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-        .test-details {
+
+        /* Content Section */
+        .content {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            flex: 1;
+            padding-top: 24px;
+            padding-left: 80px;
+            padding-right: 80px;
+            align-items: center;
         }
-        .test-class {
-            font-family: 'Courier New', Courier, monospace;
+
+        .intro-text {
+            font-weight: 300;
             font-size: 18px;
-            font-weight: 700;
-            color: #18181B;
+            line-height: 1.5;
+            color: #0F172A;
+            margin-bottom: 20px;
+            text-align: center;
+            max-width: 1000px;
         }
-        .test-coverage {
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            font-weight: 800;
+            font-size: 18px;
+            color: #1D4ED8;
+            padding: 10px 14px;
+            border-bottom: 2px solid #0F172A;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        td {
+            font-weight: 300;
             font-size: 16px;
-            color: #3F3F46;
-            line-height: 1.4;
+            color: #475569;
+            padding: 10px 14px;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        td:nth-child(2) {
+            text-align: center;
+            font-weight: 800;
+            color: #0F172A;
+        }
+
+        tr:nth-child(even) {
+            background-color: #F1F5F9;
+        }
+        
+        .class-name {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            color: #0F172A;
         }
     </style>
 </head>
 <body>
     <div class="slide-container">
-        <div class="header-area">
-            <h2 class="page-title">48 Automated Tests Confirm System Reliability</h2>
-            <div class="divider"></div>
+        <div class="header">
+            <h1>48 automated tests confirm system reliability</h1>
+            <h2>Comprehensive pytest suite covers all endpoints, edge cases, and validation rules</h2>
         </div>
         
-        <div class="intro-area">
-            <p class="intro-text"><strong>Comprehensive pytest suite covers all endpoints, edge cases, and validation rules.</strong> The test suite contains 48 automated tests organised into 7 test classes. Tests use FastAPI's TestClient with a session-scoped fixture that properly triggers the lifespan context manager, ensuring database tables are created and seed data is injected before any test runs. All 48 tests pass consistently.</p>
-        </div>
-        
-        <div class="test-grid">
-            <div class="test-item">
-                <div class="test-count">2</div>
-                <div class="test-details">
-                    <div class="test-class">TestGeneralEndpoints</div>
-                    <div class="test-coverage">Root and health check</div>
-                </div>
-            </div>
+        <div class="content">
+            <p class="intro-text">
+                The test suite contains 48 automated tests organised into 7 test classes, covering every endpoint group plus dedicated validation edge cases. Tests use FastAPI's TestClient with a session-scoped fixture that properly triggers the lifespan context manager. All 48 tests pass consistently in under 1 second.
+            </p>
             
-            <div class="test-item">
-                <div class="test-count">7</div>
-                <div class="test-details">
-                    <div class="test-class">TestTagEndpoints</div>
-                    <div class="test-coverage">Create, duplicate detection, delete</div>
-                </div>
-            </div>
-            
-            <div class="test-item">
-                <div class="test-count">3</div>
-                <div class="test-details">
-                    <div class="test-class">TestGenreEndpoints</div>
-                    <div class="test-coverage">List, get by ID, 404 handling</div>
-                </div>
-            </div>
-            
-            <div class="test-item">
-                <div class="test-count">9</div>
-                <div class="test-details">
-                    <div class="test-class">TestCollectionEndpoints</div>
-                    <div class="test-coverage">Create, items, duplicates, delete</div>
-                </div>
-            </div>
-            
-            <div class="test-item">
-                <div class="test-count">8</div>
-                <div class="test-details">
-                    <div class="test-class">TestTrackEndpoints</div>
-                    <div class="test-coverage">Filtering, pagination, retrieval, 404</div>
-                </div>
-            </div>
-            
-            <div class="test-item">
-                <div class="test-count">5</div>
-                <div class="test-details">
-                    <div class="test-class">TestAnalyticsEndpoints</div>
-                    <div class="test-coverage">All 5 analytics endpoints</div>
-                </div>
-            </div>
-            
-            <div class="test-item">
-                <div class="test-count">9</div>
-                <div class="test-details">
-                    <div class="test-class">TestReviewCRUD</div>
-                    <div class="test-coverage">Full lifecycle, invalid inputs, filters</div>
-                </div>
-            </div>
-            
-            <div class="test-item">
-                <div class="test-count">5</div>
-                <div class="test-details">
-                    <div class="test-class">TestValidation</div>
-                    <div class="test-coverage">Rating bounds, string lengths, limit max</div>
-                </div>
-            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 30%;">Test Class</th>
+                        <th style="width: 15%; text-align: center;">Tests</th>
+                        <th style="width: 55%;">Coverage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="class-name">TestGeneralEndpoints</td>
+                        <td>2</td>
+                        <td>Root and health check</td>
+                    </tr>
+                    <tr>
+                        <td class="class-name">TestGenreEndpoints</td>
+                        <td>3</td>
+                        <td>List, get by ID, 404 handling</td>
+                    </tr>
+                    <tr>
+                        <td class="class-name">TestTrackEndpoints</td>
+                        <td>8</td>
+                        <td>Filtering, pagination, retrieval, 404</td>
+                    </tr>
+                    <tr>
+                        <td class="class-name">TestReviewCRUD</td>
+                        <td>9</td>
+                        <td>Full lifecycle, invalid inputs, filters</td>
+                    </tr>
+                    <tr>
+                        <td class="class-name">TestTagEndpoints</td>
+                        <td>7</td>
+                        <td>Create, duplicate detection, delete</td>
+                    </tr>
+                    <tr>
+                        <td class="class-name">TestCollectionEndpoints</td>
+                        <td>9</td>
+                        <td>Create, items, duplicates, delete</td>
+                    </tr>
+                    <tr>
+                        <td class="class-name">TestAnalyticsEndpoints</td>
+                        <td>5</td>
+                        <td>All 5 analytics endpoints</td>
+                    </tr>
+                    <tr>
+                        <td class="class-name">TestValidation</td>
+                        <td>5</td>
+                        <td>Rating bounds, string lengths, limit max</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </body>

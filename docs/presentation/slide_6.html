@@ -2,108 +2,116 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;800&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         .slide-container {
             width: 1280px;
             min-height: 720px;
-            background-color: #FAFAFA;
+            background-color: #F8FAFC;
+            color: #475569;
             font-family: 'Inter', sans-serif;
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            grid-template-rows: 120px auto 1fr;
-            gap: 12px;
-            overflow: hidden;
-        }
-        .header-area {
-            grid-column: 2 / 12;
-            grid-row: 1;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
+            position: relative;
+            overflow: hidden;
         }
-        .page-title {
+
+        /* Header Section */
+        .header {
+            background-color: #0F172A;
+            padding-top: 40px;
+            padding-left: 60px;
+            padding-right: 60px;
+            min-height: 160px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        h1 {
+            font-weight: 800;
             font-size: 32px;
-            font-weight: 700;
-            color: #18181B;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 16px;
+            color: #F8FAFC;
+            margin-bottom: 12px;
         }
-        .divider {
-            width: 80px;
-            height: 4px;
-            background-color: #D97706;
-        }
-        .intro-area {
-            grid-column: 2 / 12;
-            grid-row: 2;
-            padding-top: 12px;
-        }
-        .intro-text {
+
+        h2 {
+            font-weight: 300;
             font-size: 20px;
-            font-weight: 400;
-            color: #3F3F46;
+            color: #94A3B8;
+        }
+
+        /* Content Section */
+        .content {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            padding-top: 30px;
+            padding-left: 80px;
+            padding-right: 80px;
+            align-items: center;
+        }
+
+        .intro-text {
+            font-weight: 300;
+            font-size: 20px;
             line-height: 1.5;
+            color: #0F172A;
+            margin-bottom: 24px;
+            text-align: center;
+            max-width: 1000px;
         }
-        .table-area {
-            grid-column: 2 / 12;
-            grid-row: 3;
-            padding-top: 8px;
-        }
-        .data-table {
+
+        /* Table Styling */
+        table {
             width: 100%;
             border-collapse: collapse;
             text-align: left;
         }
-        .data-table th {
-            background-color: #18181B;
-            color: #FAFAFA;
+
+        th {
+            font-weight: 800;
             font-size: 20px;
-            font-weight: 700;
+            color: #1D4ED8;
+            padding: 12px 16px;
+            border-bottom: 2px solid #0F172A;
             text-transform: uppercase;
             letter-spacing: 1px;
-            padding: 8px 16px;
         }
-        .data-table td {
+
+        td {
+            font-weight: 300;
             font-size: 18px;
-            font-weight: 400;
-            color: #3F3F46;
-            padding: 8px 16px;
-            border-bottom: 1px solid #E4E4E7;
-            background-color: #FFFFFF;
+            color: #475569;
+            padding: 12px 16px;
+            border-bottom: 1px solid #E2E8F0;
         }
-        .data-table tr:nth-child(even) td {
-            background-color: #F4F4F5;
+
+        td:nth-child(2) {
+            text-align: center;
+            font-weight: 800;
+            color: #0F172A;
         }
-        .count-badge {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background-color: #0369A1;
-            color: #FAFAFA;
-            font-weight: 700;
-            font-size: 16px;
+
+        tr:nth-child(even) {
+            background-color: #F1F5F9;
         }
     </style>
 </head>
 <body>
     <div class="slide-container">
-        <div class="header-area">
-            <h2 class="page-title">25 Endpoints Deliver Complete API Functionality</h2>
-            <div class="divider"></div>
+        <div class="header">
+            <h1>25 endpoints deliver complete API functionality</h1>
+            <h2>Seven endpoint groups cover browsing, CRUD, curation, and analytics</h2>
         </div>
         
-        <div class="intro-area">
-            <p class="intro-text"><strong>Seven endpoint groups cover browsing, CRUD, curation, and analytics.</strong> The API exposes 25 endpoints organised into seven logical groups. The Reviews group implements full CRUD with automatic average rating recalculation. Tracks support filtering by title, artist, genre, and mood, with offset-based pagination. Collections allow users to create themed playlists and manage their contents. The Analytics group provides five aggregation endpoints that go beyond basic CRUD to deliver real analytical value.</p>
-        </div>
-        
-        <div class="table-area">
-            <table class="data-table">
+        <div class="content">
+            <p class="intro-text">
+                The API exposes 25 endpoints organised into seven logical groups. The Reviews group implements full CRUD with automatic average rating recalculation. Tracks support filtering, pagination, and sorting. Collections allow users to create themed playlists. The Analytics group provides five aggregation endpoints that go beyond basic CRUD.
+            </p>
+            
+            <table>
                 <thead>
                     <tr>
                         <th style="width: 20%;">Group</th>
@@ -113,38 +121,38 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong>General</strong></td>
-                        <td style="text-align: center;"><span class="count-badge">2</span></td>
+                        <td>General</td>
+                        <td>2</td>
                         <td>Health check, welcome message</td>
                     </tr>
                     <tr>
-                        <td><strong>Genres</strong></td>
-                        <td style="text-align: center;"><span class="count-badge">2</span></td>
+                        <td>Genres</td>
+                        <td>2</td>
                         <td>List all, get by ID</td>
                     </tr>
                     <tr>
-                        <td><strong>Tracks</strong></td>
-                        <td style="text-align: center;"><span class="count-badge">2</span></td>
-                        <td>List with 4 filters + pagination, get by ID</td>
+                        <td>Tracks</td>
+                        <td>2</td>
+                        <td>List with 4 filters + pagination + sorting, get by ID</td>
                     </tr>
                     <tr>
-                        <td><strong>Reviews</strong></td>
-                        <td style="text-align: center;"><span class="count-badge">5</span></td>
+                        <td>Reviews</td>
+                        <td>5</td>
                         <td>Full CRUD + filtering by track, reviewer, min rating</td>
                     </tr>
                     <tr>
-                        <td><strong>Tags</strong></td>
-                        <td style="text-align: center;"><span class="count-badge">3</span></td>
+                        <td>Tags</td>
+                        <td>3</td>
                         <td>Create, list (filter by track), delete</td>
                     </tr>
                     <tr>
-                        <td><strong>Collections</strong></td>
-                        <td style="text-align: center;"><span class="count-badge">6</span></td>
+                        <td>Collections</td>
+                        <td>6</td>
                         <td>Create, list, detail with items, add/remove items, delete</td>
                     </tr>
                     <tr>
-                        <td><strong>Analytics</strong></td>
-                        <td style="text-align: center;"><span class="count-badge">5</span></td>
+                        <td>Analytics</td>
+                        <td>5</td>
                         <td>Top-rated, genre summary, top tags, mood distribution, review activity</td>
                     </tr>
                 </tbody>

@@ -2,103 +2,123 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;800&family=Fira+Code&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         .slide-container {
             width: 1280px;
             min-height: 720px;
-            background-color: #FAFAFA;
+            background-color: #F8FAFC;
+            color: #475569;
             font-family: 'Inter', sans-serif;
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            grid-template-rows: 120px auto 1fr;
-            gap: 16px;
-            overflow: hidden;
-        }
-        .header-area {
-            grid-column: 2 / 12;
-            grid-row: 1;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
+            position: relative;
+            overflow: hidden;
         }
-        .page-title {
+
+        /* Header Section */
+        .header {
+            background-color: #0F172A;
+            padding-top: 40px;
+            padding-left: 60px;
+            padding-right: 60px;
+            min-height: 160px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        h1 {
+            font-weight: 800;
             font-size: 32px;
-            font-weight: 700;
-            color: #18181B;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 16px;
+            color: #F8FAFC;
+            margin-bottom: 12px;
         }
-        .divider {
-            width: 80px;
-            height: 4px;
-            background-color: #D97706;
-        }
-        .intro-area {
-            grid-column: 2 / 12;
-            grid-row: 2;
-            padding-top: 12px;
-        }
-        .intro-text {
+
+        h2 {
+            font-weight: 300;
             font-size: 20px;
-            font-weight: 400;
-            color: #3F3F46;
-            line-height: 1.6;
+            color: #94A3B8;
         }
-        .table-area {
-            grid-column: 2 / 12;
-            grid-row: 3;
-            padding-top: 12px;
+
+        /* Content Section */
+        .content {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            padding-top: 30px;
+            padding-left: 80px;
+            padding-right: 80px;
+            align-items: center;
         }
-        .entity-table {
+
+        .intro-text {
+            font-weight: 300;
+            font-size: 20px;
+            line-height: 1.5;
+            color: #0F172A;
+            margin-bottom: 30px;
+            text-align: center;
+            max-width: 1000px;
+        }
+
+        /* Table Styling */
+        table {
             width: 100%;
             border-collapse: collapse;
-            background-color: #FFFFFF;
-        }
-        .entity-table th {
-            background-color: #18181B;
-            color: #FAFAFA;
-            font-size: 20px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            padding: 12px 18px;
             text-align: left;
         }
-        .entity-table td {
-            padding: 12px 18px;
+
+        th {
+            font-weight: 800;
+            font-size: 22px;
+            color: #1D4ED8;
+            padding: 12px 16px;
+            border-bottom: 2px solid #0F172A;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        td {
+            font-weight: 300;
             font-size: 18px;
-            color: #3F3F46;
-            border-bottom: 1px solid #E4E4E7;
+            color: #475569;
+            padding: 12px 16px;
+            border-bottom: 1px solid #E2E8F0;
         }
+
+        tr:nth-child(even) {
+            background-color: #F1F5F9;
+        }
+
         .entity-name {
-            font-weight: 700;
-            color: #0369A1;
+            font-weight: 800;
+            color: #0F172A;
         }
-        .key-fields {
-            font-family: monospace;
-            background-color: #F4F4F5;
-            padding: 2px 6px;
+
+        .code-font {
+            font-family: 'Fira Code', monospace;
             font-size: 16px;
-            color: #18181B;
+            color: #1D4ED8;
+            background-color: #E2E8F0;
+            padding: 2px 6px;
         }
     </style>
 </head>
 <body>
     <div class="slide-container">
-        <div class="header-area">
-            <h2 class="page-title">Six Core Entities Model the Music Appreciation Domain</h2>
-            <div class="divider"></div>
+        <div class="header">
+            <h1>Six core entities model the music appreciation domain</h1>
+            <h2>Genre, Track, Review, UserTag, Collection, and CollectionItem form a coherent relational schema</h2>
         </div>
         
-        <div class="intro-area">
-            <p class="intro-text"><strong>Genre, Track, Review, UserTag, Collection, and CollectionItem form a coherent relational schema.</strong> The database schema centres on the Track entity, which connects to Genre (many-to-one), Review (one-to-many), UserTag (one-to-many), and CollectionItem (many-to-many via Collection). This design supports rich querying through standard SQL joins and group-by operations.</p>
-        </div>
-        
-        <div class="table-area">
-            <table class="entity-table">
+        <div class="content">
+            <p class="intro-text">
+                The database schema centres on the Track entity, which connects to Genre (many-to-one), Review (one-to-many), UserTag (one-to-many), and CollectionItem (many-to-many via Collection). This design supports rich querying: analytics endpoints can aggregate ratings by genre, count tags across tracks, and summarise reviewer activity through standard SQL joins and group-by operations.
+            </p>
+            
+            <table>
                 <thead>
                     <tr>
                         <th style="width: 20%;">Entity</th>
@@ -110,32 +130,32 @@
                     <tr>
                         <td class="entity-name">Genre</td>
                         <td>Classifies tracks into 8 categories</td>
-                        <td><span class="key-fields">name, description</span></td>
+                        <td><span class="code-font">name</span>, <span class="code-font">description</span></td>
                     </tr>
                     <tr>
                         <td class="entity-name">Track</td>
                         <td>Central music metadata entity</td>
-                        <td><span class="key-fields">title, artist, mood, play_count, average_rating</span></td>
+                        <td><span class="code-font">title</span>, <span class="code-font">artist</span>, <span class="code-font">mood</span>, <span class="code-font">average_rating</span></td>
                     </tr>
                     <tr>
                         <td class="entity-name">Review</td>
-                        <td>Main CRUD resource (1-5 rating)</td>
-                        <td><span class="key-fields">reviewer_name, rating, comment</span></td>
+                        <td>Main CRUD resource (1–5 rating)</td>
+                        <td><span class="code-font">reviewer_name</span>, <span class="code-font">rating</span>, <span class="code-font">comment</span></td>
                     </tr>
                     <tr>
                         <td class="entity-name">UserTag</td>
                         <td>User-defined descriptive labels</td>
-                        <td><span class="key-fields">tag_name, created_by</span></td>
+                        <td><span class="code-font">tag_name</span>, <span class="code-font">created_by</span></td>
                     </tr>
                     <tr>
                         <td class="entity-name">Collection</td>
                         <td>Themed grouping of tracks</td>
-                        <td><span class="key-fields">name, description, created_by</span></td>
+                        <td><span class="code-font">name</span>, <span class="code-font">description</span>, <span class="code-font">created_by</span></td>
                     </tr>
                     <tr>
                         <td class="entity-name">CollectionItem</td>
                         <td>Links tracks to collections</td>
-                        <td><span class="key-fields">track_id, collection_id, note</span></td>
+                        <td><span class="code-font">track_id</span>, <span class="code-font">collection_id</span>, <span class="code-font">note</span></td>
                     </tr>
                 </tbody>
             </table>

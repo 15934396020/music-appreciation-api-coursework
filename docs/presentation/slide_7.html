@@ -2,175 +2,142 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;800&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         .slide-container {
             width: 1280px;
             min-height: 720px;
-            background-color: #FAFAFA;
+            background-color: #F8FAFC;
+            color: #475569;
             font-family: 'Inter', sans-serif;
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            grid-template-rows: 120px auto 1fr;
-            gap: 16px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
             overflow: hidden;
         }
-        .header-area {
-            grid-column: 2 / 12;
-            grid-row: 1;
+
+        /* Header Section */
+        .header {
+            background-color: #0F172A;
+            padding-top: 40px;
+            padding-left: 60px;
+            padding-right: 60px;
+            min-height: 160px;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
+            justify-content: flex-start;
         }
-        .page-title {
+
+        h1 {
+            font-weight: 800;
             font-size: 32px;
-            font-weight: 700;
-            color: #18181B;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 16px;
+            color: #F8FAFC;
+            margin-bottom: 12px;
         }
-        .divider {
-            width: 80px;
-            height: 4px;
-            background-color: #D97706;
-        }
-        .intro-area {
-            grid-column: 2 / 12;
-            grid-row: 2;
-            padding-top: 24px;
-        }
-        .intro-text {
+
+        h2 {
+            font-weight: 300;
             font-size: 20px;
-            font-weight: 400;
-            color: #3F3F46;
-            line-height: 1.6;
+            color: #94A3B8;
         }
-        .steps-area {
-            grid-column: 2 / 12;
-            grid-row: 3;
-            padding-top: 32px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: repeat(4, auto);
-            gap: 24px 40px;
-        }
-        .step-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-            background-color: #FFFFFF;
-            padding: 16px;
-            border-left: 4px solid #0369A1;
-        }
-        .step-number {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background-color: #0369A1;
-            color: #FAFAFA;
-            font-size: 16px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-        .step-content {
+
+        /* Content Section */
+        .content {
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            flex: 1;
+            padding-top: 50px;
+            padding-left: 80px;
+            padding-right: 80px;
         }
-        .step-action {
-            font-family: 'Fira Code', monospace;
-            font-size: 16px;
-            font-weight: 700;
-            color: #18181B;
+
+        .intro-text {
+            font-weight: 300;
+            font-size: 24px;
+            line-height: 1.6;
+            color: #0F172A;
+            margin-bottom: 40px;
+            border-left: 4px solid #1D4ED8;
+            padding-left: 24px;
         }
-        .step-desc {
-            font-size: 16px;
-            font-weight: 400;
-            color: #3F3F46;
-            line-height: 1.4;
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            font-weight: 800;
+            font-size: 20px;
+            color: #1D4ED8;
+            padding: 16px 20px;
+            border-bottom: 2px solid #0F172A;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        td {
+            font-weight: 300;
+            font-size: 20px;
+            color: #475569;
+            padding: 16px 20px;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        tr:nth-child(even) {
+            background-color: #F1F5F9;
+        }
+
+        .endpoint-code {
+            font-family: monospace;
+            font-weight: 800;
+            color: #0F172A;
+            font-size: 18px;
+            width: 40%;
         }
     </style>
 </head>
 <body>
     <div class="slide-container">
-        <div class="header-area">
-            <h2 class="page-title">Live Demonstration Walkthrough</h2>
-            <div class="divider"></div>
+        <div class="header">
+            <h1>Review CRUD demonstrates complete lifecycle management</h1>
+            <h2>Create, read, update, and delete reviews with automatic rating recalculation</h2>
         </div>
         
-        <div class="intro-area">
-            <p class="intro-text"><strong>A realistic user journey from browsing tracks to viewing analytics.</strong> The demonstration follows a natural workflow: browsing the catalogue, interacting with tracks, building a collection, and viewing summaries via the Swagger UI.</p>
-        </div>
-        
-        <div class="steps-area">
-            <div class="step-item">
-                <div class="step-number">1</div>
-                <div class="step-content">
-                    <div class="step-action">Open Swagger UI at /docs</div>
-                    <div class="step-desc">Show auto-generated interactive documentation</div>
-                </div>
-            </div>
+        <div class="content">
+            <p class="intro-text">
+                The Reviews resource is the primary CRUD entity. Creating a review validates the track exists and enforces rating (1–5) and comment constraints. Updates support partial modification. Deletion returns 204 No Content. After every create, update, or delete operation, a helper function automatically recalculates and persists the track's average rating.
+            </p>
             
-            <div class="step-item">
-                <div class="step-number">5</div>
-                <div class="step-content">
-                    <div class="step-action">PUT /reviews/{id}</div>
-                    <div class="step-desc">Update the review rating to 4</div>
-                </div>
-            </div>
-            
-            <div class="step-item">
-                <div class="step-number">2</div>
-                <div class="step-content">
-                    <div class="step-action">GET /tracks?genre=Jazz</div>
-                    <div class="step-desc">Filter the catalogue by genre</div>
-                </div>
-            </div>
-            
-            <div class="step-item">
-                <div class="step-number">6</div>
-                <div class="step-content">
-                    <div class="step-action">POST /tags</div>
-                    <div class="step-desc">Tag the track as "iconic"</div>
-                </div>
-            </div>
-            
-            <div class="step-item">
-                <div class="step-number">3</div>
-                <div class="step-content">
-                    <div class="step-action">GET /tracks/6</div>
-                    <div class="step-desc">Retrieve detailed information for "Take Five"</div>
-                </div>
-            </div>
-            
-            <div class="step-item">
-                <div class="step-number">7</div>
-                <div class="step-content">
-                    <div class="step-action">POST /collections &amp; /items</div>
-                    <div class="step-desc">Create "Jazz Favourites" collection and add track</div>
-                </div>
-            </div>
-            
-            <div class="step-item">
-                <div class="step-number">4</div>
-                <div class="step-content">
-                    <div class="step-action">POST /reviews</div>
-                    <div class="step-desc">Create a 5-star review with comment</div>
-                </div>
-            </div>
-            
-            <div class="step-item">
-                <div class="step-number">8</div>
-                <div class="step-content">
-                    <div class="step-action">GET /analytics/genre-summary</div>
-                    <div class="step-desc">View aggregated genre statistics</div>
-                </div>
-            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Endpoint</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="endpoint-code">POST /reviews</td>
+                        <td>Create a review (validates track, enforces constraints, returns 201)</td>
+                    </tr>
+                    <tr>
+                        <td class="endpoint-code">GET /reviews?track_id=5&min_rating=4</td>
+                        <td>Filter reviews with pagination</td>
+                    </tr>
+                    <tr>
+                        <td class="endpoint-code">PUT /reviews/{id}</td>
+                        <td>Partial update (only provided fields change)</td>
+                    </tr>
+                    <tr>
+                        <td class="endpoint-code">DELETE /reviews/{id}</td>
+                        <td>Remove review, recalculate track average (returns 204)</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </body>

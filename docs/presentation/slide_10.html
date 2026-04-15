@@ -2,148 +2,181 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;800&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         .slide-container {
             width: 1280px;
             min-height: 720px;
-            background-color: #FAFAFA;
+            background-color: #F8FAFC; /* background */
+            color: #475569; /* body */
             font-family: 'Inter', sans-serif;
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            grid-template-rows: 120px auto 1fr;
-            gap: 12px; /* reduced vertical gaps */
+            display: flex;
+            flex-direction: column;
+            position: relative;
             overflow: hidden;
         }
-        .header-area {
-            grid-column: 2 / 12;
-            grid-row: 1;
+
+        /* Header Section */
+        .header {
+            background-color: #0F172A; /* accent2 / dark blue */
+            padding-top: 40px; /* DO NOT CHANGE */
+            padding-left: 60px;
+            padding-right: 60px;
+            min-height: 160px;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
+            justify-content: flex-start;
         }
-        .page-title {
+
+        h1 {
+            font-weight: 800;
             font-size: 32px;
-            font-weight: 700;
-            color: #18181B;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 16px;
+            color: #F8FAFC;
+            margin-bottom: 12px;
         }
-        .divider {
-            width: 80px;
-            height: 4px;
-            background-color: #D97706;
-        }
-        .intro-area {
-            grid-column: 2 / 12;
-            grid-row: 2;
-            padding-top: 8px; /* reduced */
-        }
-        .intro-text {
+
+        h2 {
+            font-weight: 300;
             font-size: 20px;
-            font-weight: 400;
-            color: #3F3F46;
-            line-height: 1.6;
+            color: #94A3B8;
         }
-        .columns-area {
-            grid-column: 2 / 12;
-            grid-row: 3;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 28px; /* horizontal gap kept reasonable */
-            margin-top: 8px; /* reduced */
-        }
-        .column {
+
+        /* Content Section */
+        .content {
             display: flex;
             flex-direction: column;
-            background-color: #FFFFFF;
-            border-top: 8px solid #18181B;
-            padding: 12px; /* reduced */
+            flex: 1;
+            padding-top: 30px; /* reduced from 50 to save vertical space */
+            padding-left: 80px;
+            padding-right: 80px;
+            align-items: center;
         }
-        .col-strengths { border-top-color: #0369A1; }
-        .col-limitations { border-top-color: #D97706; }
-        .col-future { border-top-color: #18181B; }
-        
+
+        .intro-text {
+            font-weight: 300;
+            font-size: 22px;
+            line-height: 1.6;
+            color: #0F172A;
+            margin-bottom: 20px; /* reduced from 60 */
+            text-align: center;
+            max-width: 1000px;
+        }
+
+        /* Three Column Layout */
+        .columns-container {
+            display: flex;
+            width: 100%;
+            gap: 40px;
+            margin-bottom: 20px; /* reduced from 60 */
+        }
+
+        .column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
         .column-title {
+            font-weight: 800;
             font-size: 24px;
-            font-weight: 700;
-            color: #18181B;
+            color: #1D4ED8; /* accent1 */
+            margin-bottom: 12px; /* slightly reduced from 20 */
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 16px; /* reduced */
+            border-bottom: 2px solid #0F172A;
+            padding-bottom: 6px; /* reduced from 10 */
         }
-        .points-list {
-            display: flex;
-            flex-direction: column;
-            gap: 8px; /* reduced */
+
+        .column-content {
+            font-weight: 300;
+            font-size: 20px;
+            line-height: 1.6;
+            color: #475569;
         }
-        .point-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
+
+        .column-content ul {
+            list-style-type: none;
         }
-        .data-node {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: #0369A1;
-            flex-shrink: 0;
-            margin-top: 4px; /* slightly reduced */
+
+        .column-content li {
+            margin-bottom: 8px; /* reduced from 12 */
+            position: relative;
+            padding-left: 20px;
         }
-        .col-limitations .data-node { background-color: #D97706; }
-        .col-future .data-node { background-color: #18181B; }
-        
-        .point-text {
-            font-size: 18px;
-            font-weight: 400;
-            color: #3F3F46;
-            line-height: 1.4;
+
+        .column-content li::before {
+            content: "•";
+            color: #1D4ED8;
+            font-weight: 800;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Footer */
+        .footer-text {
+            font-weight: 800;
+            font-size: 32px;
+            color: #0F172A;
+            margin-top: auto;
+            margin-bottom: 20px; /* reduced from 40 */
+            text-align: center;
         }
     </style>
 </head>
 <body>
     <div class="slide-container">
-        <div class="header-area">
-            <h2 class="page-title">Strengths, Limitations, and Future Directions</h2>
-            <div class="divider"></div>
+        <div class="header">
+            <h1>A coherent, well-tested prototype with clear paths for enhancement</h1>
+            <h2>Strengths, limitations, and future directions</h2>
         </div>
         
-        <div class="intro-area">
-            <p class="intro-text"><strong>A coherent, well-tested prototype with clear paths for enhancement.</strong> The project delivers a complete, well-documented API with deliberate scope control so implemented features are fully tested. Key limitations provide a concise roadmap for future development.</p>
-        </div>
-        
-        <div class="columns-area">
-            <div class="column col-strengths">
-                <h3 class="column-title">Strengths</h3>
-                <div class="points-list">
-                    <div class="point-item"><div class="data-node"></div><div class="point-text">Complete CRUD functionality for reviews, tags, and collections</div></div>
-                    <div class="point-item"><div class="data-node"></div><div class="point-text">Rich analytics endpoints demonstrating complex SQL joins</div></div>
-                    <div class="point-item"><div class="data-node"></div><div class="point-text">48 automated tests ensuring system reliability</div></div>
-                    <div class="point-item"><div class="data-node"></div><div class="point-text">Modern FastAPI patterns including lifespan management</div></div>
-                    <div class="point-item"><div class="data-node"></div><div class="point-text">Full interactive and static documentation</div></div>
+        <div class="content">
+            <p class="intro-text">
+                The project successfully delivers a complete, well-documented API with 25 endpoints, 48 passing tests, and comprehensive documentation. Every feature was fully implemented and tested rather than partially built.
+            </p>
+            
+            <div class="columns-container">
+                <div class="column">
+                    <div class="column-title">Strengths</div>
+                    <div class="column-content">
+                        <ul>
+                            <li>Complete CRUD operations</li>
+                            <li>Rich analytics endpoints</li>
+                            <li>48 automated tests</li>
+                            <li>Modern FastAPI patterns</li>
+                            <li>Full API documentation</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="column">
+                    <div class="column-title">Limitations</div>
+                    <div class="column-content">
+                        <ul>
+                            <li>No user authentication</li>
+                            <li>SQLite database only</li>
+                            <li>Static seed data</li>
+                            <li>No audio playback</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="column">
+                    <div class="column-title">Future Work</div>
+                    <div class="column-content">
+                        <ul>
+                            <li>OAuth2 tokens & JWT</li>
+                            <li>PostgreSQL migration</li>
+                            <li>Spotify / MusicBrainz integration</li>
+                            <li>React frontend client</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             
-            <div class="column col-limitations">
-                <h3 class="column-title">Limitations</h3>
-                <div class="points-list">
-                    <div class="point-item"><div class="data-node"></div><div class="point-text">No user authentication or authorization system</div></div>
-                    <div class="point-item"><div class="data-node"></div><div class="point-text">SQLite database limits concurrent write performance</div></div>
-                    <div class="point-item"><div class="data-node"></div><div class="point-text">Relies on static seed data rather than live sources</div></div>
-                    <div class="point-item"><div class="data-node"></div><div class="point-text">No frontend client to consume the API</div></div>
-                </div>
-            </div>
-            
-            <div class="column col-future">
-                <h3 class="column-title">Future Work</h3>
-                <div class="points-list">
-                    <div class="point-item"><div class="data-node"></div><div class="point-text">Implement OAuth2 with JWT tokens for secure access</div></div>
-                    <div class="point-item"><div class="data-node"></div><div class="point-text">Migrate to PostgreSQL for production-grade scalability</div></div>
-                    <div class="point-item"><div class="data-node"></div><div class="point-text">Integrate Spotify or MusicBrainz APIs for dynamic metadata</div></div>
-                    <div class="point-item"><div class="data-node"></div><div class="point-text">Develop a React-based frontend dashboard</div></div>
-                </div>
+            <div class="footer-text">
+                Thank you — questions welcome.
             </div>
         </div>
     </div>

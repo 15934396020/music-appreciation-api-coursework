@@ -30,7 +30,7 @@ This file explains the project purpose, the stable strategy, the exact reading o
 | FastAPI app entrypoint | Done (Refactored to lifespan) |
 | Database configuration | Done |
 | SQLAlchemy models | Done |
-| Seed data | Done (Expanded to 25 tracks, 8 genres) |
+| Seed data | Done (Expanded to 29 tracks, 8 genres) |
 | Core endpoints | Done (25 endpoints total) |
 | Automated tests | Done (48 tests passing) |
 | API Documentation | Done (Markdown and PDF generated) |

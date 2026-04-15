@@ -2,170 +2,139 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;800&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         .slide-container {
             width: 1280px;
             min-height: 720px;
-            background-color: #FAFAFA;
+            background-color: #F8FAFC;
+            color: #475569;
             font-family: 'Inter', sans-serif;
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            grid-template-rows: 120px auto 1fr;
-            gap: 8px; /* reduced from 20px to save vertical space */
+            display: flex;
+            flex-direction: column;
+            position: relative;
             overflow: hidden;
         }
-        .header-area {
-            grid-column: 2 / 12;
-            grid-row: 1;
+
+        /* Header Section */
+        .header {
+            background-color: #0F172A;
+            padding-top: 40px; /* must keep this */
+            padding-left: 60px;
+            padding-right: 60px;
+            min-height: 160px;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
+            justify-content: flex-start;
         }
-        .page-title {
+
+        h1 {
+            font-weight: 800;
             font-size: 32px;
-            font-weight: 700;
-            color: #18181B;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 16px;
+            color: #F8FAFC;
+            margin-bottom: 12px;
         }
-        .divider {
-            width: 80px;
-            height: 4px;
-            background-color: #D97706;
-        }
-        .intro-area {
-            grid-column: 2 / 12;
-            grid-row: 2;
-            padding-top: 28px; /* reduced from 40px */
-        }
-        .intro-text {
+
+        h2 {
+            font-weight: 300;
             font-size: 20px;
-            font-weight: 400;
-            color: #3F3F46;
-            line-height: 1.6;
+            color: #94A3B8;
+        }
+
+        /* Content Section */
+        .content {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            padding-top: 30px; /* reduced from 60px to save vertical space */
+            padding-left: 120px;
+            padding-right: 120px;
+            align-items: center;
+        }
+
+        .intro-text {
+            font-weight: 300;
+            font-size: 24px;
+            line-height: 1.5;
+            color: #0F172A;
+            margin-bottom: 30px; /* reduced from 60px */
+            text-align: center;
             max-width: 900px;
         }
-        .table-area {
-            grid-column: 2 / 12;
-            grid-row: 3;
-            padding-top: 40px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
         }
-        .scope-column {
-            display: flex;
-            flex-direction: column;
-        }
-        .column-header {
+
+        th {
+            font-weight: 800;
             font-size: 24px;
-            font-weight: 700;
-            color: #FAFAFA;
-            background-color: #18181B;
+            color: #1D4ED8;
+            padding: 14px; /* reduced from 20px */
+            border-bottom: 2px solid #0F172A;
             text-transform: uppercase;
             letter-spacing: 1px;
-            padding: 16px 24px;
-            margin-bottom: 16px;
         }
-        .out-of-scope-header {
-            background-color: #3F3F46;
-        }
-        .scope-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px; /* slightly reduced */
-        }
-        .scope-item {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            padding: 10px 24px; /* slightly reduced vertical padding */
-            background-color: #FFFFFF;
-            border-bottom: 1px solid #E4E4E7;
-        }
-        .data-node {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: #0369A1;
-            flex-shrink: 0;
-        }
-        .out-node {
-            background-color: #D97706;
-        }
-        .item-text {
+
+        td {
+            font-weight: 300;
             font-size: 20px;
-            font-weight: 400;
-            color: #3F3F46;
+            color: #475569;
+            padding: 14px; /* reduced from 20px */
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        tr:nth-child(even) {
+            background-color: #F1F5F9;
         }
     </style>
 </head>
 <body>
     <div class="slide-container">
-        <div class="header-area">
-            <h2 class="page-title">Deliberately Scoped for Coursework Quality</h2>
-            <div class="divider"></div>
+        <div class="header">
+            <h1>Strategic scope control ensures a coherent, fully testable system</h1>
+            <h2>Deliberately scoped for coursework quality — complete rather than ambitious</h2>
         </div>
         
-        <div class="intro-area">
-            <p class="intro-text"><strong>Strategic scope control ensures a coherent, fully testable system.</strong> The project was deliberately scoped to deliver a complete, polished system rather than an ambitious but incomplete one. Core features include track and genre browsing, full review CRUD, user tags, collections, and five analytics endpoints.</p>
-        </div>
-        
-        <div class="table-area">
-            <div class="scope-column">
-                <div class="column-header">In Scope</div>
-                <div class="scope-list">
-                    <div class="scope-item">
-                        <div class="data-node"></div>
-                        <div class="item-text">25 tracks across 8 genres</div>
-                    </div>
-                    <div class="scope-item">
-                        <div class="data-node"></div>
-                        <div class="item-text">Full review CRUD with validation</div>
-                    </div>
-                    <div class="scope-item">
-                        <div class="data-node"></div>
-                        <div class="item-text">Tags and collections management</div>
-                    </div>
-                    <div class="scope-item">
-                        <div class="data-node"></div>
-                        <div class="item-text">5 analytics endpoints</div>
-                    </div>
-                    <div class="scope-item">
-                        <div class="data-node"></div>
-                        <div class="item-text">48 automated tests</div>
-                    </div>
-                </div>
-            </div>
+        <div class="content">
+            <p class="intro-text">
+                The project was deliberately scoped to deliver a complete, polished system rather than an ambitious but incomplete one. Authentication, audio playback, and external API dependencies were intentionally excluded to maintain focus.
+            </p>
             
-            <div class="scope-column">
-                <div class="column-header out-of-scope-header">Out of Scope</div>
-                <div class="scope-list">
-                    <div class="scope-item">
-                        <div class="data-node out-node"></div>
-                        <div class="item-text">Audio playback</div>
-                    </div>
-                    <div class="scope-item">
-                        <div class="data-node out-node"></div>
-                        <div class="item-text">User authentication</div>
-                    </div>
-                    <div class="scope-item">
-                        <div class="data-node out-node"></div>
-                        <div class="item-text">Recommendation engine</div>
-                    </div>
-                    <div class="scope-item">
-                        <div class="data-node out-node"></div>
-                        <div class="item-text">External API integration</div>
-                    </div>
-                    <div class="scope-item">
-                        <div class="data-node out-node"></div>
-                        <div class="item-text">Cloud deployment</div>
-                    </div>
-                </div>
-            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>In Scope</th>
+                        <th>Out of Scope</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>29 tracks across 8 genres</td>
+                        <td>Audio playback</td>
+                    </tr>
+                    <tr>
+                        <td>Full review CRUD with validation</td>
+                        <td>User authentication</td>
+                    </tr>
+                    <tr>
+                        <td>Tags and collections management</td>
+                        <td>Recommendation engine</td>
+                    </tr>
+                    <tr>
+                        <td>5 analytics endpoints</td>
+                        <td>External API integration</td>
+                    </tr>
+                    <tr>
+                        <td>48 automated tests</td>
+                        <td>Cloud deployment</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </body>

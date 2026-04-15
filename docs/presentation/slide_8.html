@@ -2,134 +2,154 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;800&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         .slide-container {
             width: 1280px;
             min-height: 720px;
-            background-color: #FAFAFA;
+            background-color: #F8FAFC; /* background */
+            color: #475569; /* body */
             font-family: 'Inter', sans-serif;
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            grid-template-rows: 120px auto 1fr;
-            gap: 24px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
             overflow: hidden;
         }
-        .header-area {
-            grid-column: 2 / 12;
-            grid-row: 1;
+
+        /* Header Section */
+        .header {
+            background-color: #0F172A; /* accent2 / dark blue */
+            padding-top: 40px;
+            padding-left: 60px;
+            padding-right: 60px;
+            min-height: 160px;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
+            justify-content: flex-start;
         }
-        .page-title {
+
+        h1 {
+            font-weight: 800;
             font-size: 32px;
-            font-weight: 700;
-            color: #18181B;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 16px;
+            color: #F8FAFC;
+            margin-bottom: 12px;
         }
-        .divider {
-            width: 80px;
-            height: 4px;
-            background-color: #D97706;
-        }
-        .intro-area {
-            grid-column: 2 / 12;
-            grid-row: 2;
-            padding-top: 16px;
-        }
-        .intro-text {
+
+        h2 {
+            font-weight: 300;
             font-size: 20px;
-            font-weight: 400;
-            color: #3F3F46;
-            line-height: 1.6;
+            color: #94A3B8;
         }
-        .intro-text code {
-            font-family: 'Courier New', Courier, monospace;
-            background-color: #E4E4E7;
-            padding: 2px 6px;
-            color: #18181B;
-            font-weight: 700;
-            font-size: 18px;
-        }
-        .table-area {
-            grid-column: 2 / 12;
-            grid-row: 3;
+
+        /* Content Section */
+        .content {
             display: flex;
             flex-direction: column;
-            margin-top: 16px;
-        }
-        .table-header {
-            display: grid;
-            grid-template-columns: 4fr 6fr;
-            background-color: #18181B;
-            color: #FAFAFA;
-            padding: 16px 24px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 20px;
-        }
-        .table-row {
-            display: grid;
-            grid-template-columns: 4fr 6fr;
-            background-color: #FFFFFF;
-            padding: 16px 24px;
-            border-bottom: 1px solid #E4E4E7;
+            flex: 1;
+            padding-top: 40px;
+            padding-left: 80px;
+            padding-right: 80px;
             align-items: center;
         }
-        .col-endpoint {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 20px;
-            color: #0369A1;
-            font-weight: 700;
+
+        .intro-text {
+            font-weight: 300;
+            font-size: 22px;
+            line-height: 1.5;
+            color: #0F172A;
+            margin-bottom: 40px;
+            text-align: center;
+            max-width: 1000px;
         }
-        .col-returns {
-            font-size: 20px;
-            color: #3F3F46;
-            line-height: 1.4;
+
+        .code-inline {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #E2E8F0;
+            padding: 2px 6px;
+            color: #1D4ED8;
+            font-weight: bold;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            font-weight: 800;
+            font-size: 22px;
+            color: #1D4ED8; /* accent1 */
+            padding: 16px;
+            border-bottom: 2px solid #0F172A;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        td {
+            font-weight: 300;
+            font-size: 18px;
+            color: #475569;
+            padding: 16px;
+            border-bottom: 1px solid #E2E8F0; /* 1px subtle dividers */
+        }
+
+        tr:nth-child(even) {
+            background-color: #F1F5F9; /* alternating row highlights */
+        }
+
+        .endpoint-col {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            color: #0F172A;
+            width: 40%;
         }
     </style>
 </head>
 <body>
     <div class="slide-container">
-        <div class="header-area">
-            <h2 class="page-title">Analytics Endpoints Elevate the Project Beyond Basic CRUD</h2>
-            <div class="divider"></div>
+        <div class="header">
+            <h1>Five analytics endpoints transform raw data into actionable insights</h1>
+            <h2>Advanced SQLAlchemy aggregations elevate the project beyond basic CRUD</h2>
         </div>
         
-        <div class="intro-area">
-            <p class="intro-text"><strong>Five aggregation endpoints transform raw data into actionable insights.</strong> The analytics module demonstrates advanced SQLAlchemy querying capabilities including <code>func.avg</code>, <code>func.count</code>, <code>group_by</code>, <code>outerjoin</code>, and <code>having</code> clauses. These endpoints provide immediate value for potential dashboard clients and demonstrate a deeper understanding of relational data processing than basic CRUD alone.</p>
-        </div>
-        
-        <div class="table-area">
-            <div class="table-header">
-                <div>Endpoint</div>
-                <div>What It Returns</div>
-            </div>
-            <div class="table-row">
-                <div class="col-endpoint">/analytics/top-rated-tracks</div>
-                <div class="col-returns">Highest-rated tracks with review counts (requires at least 1 review)</div>
-            </div>
-            <div class="table-row">
-                <div class="col-endpoint">/analytics/genre-summary</div>
-                <div class="col-returns">Track count and average rating per genre</div>
-            </div>
-            <div class="table-row">
-                <div class="col-endpoint">/analytics/top-tags</div>
-                <div class="col-returns">Most frequently used tags across all tracks</div>
-            </div>
-            <div class="table-row">
-                <div class="col-endpoint">/analytics/mood-distribution</div>
-                <div class="col-returns">Distribution of mood keywords across the catalogue</div>
-            </div>
-            <div class="table-row">
-                <div class="col-endpoint">/analytics/review-activity</div>
-                <div class="col-returns">Total reviews, average rating, and per-reviewer breakdown</div>
-            </div>
+        <div class="content">
+            <p class="intro-text">
+                The analytics module demonstrates advanced querying capabilities including <span class="code-inline">func.avg</span>, <span class="code-inline">func.count</span>, <span class="code-inline">group_by</span>, <span class="code-inline">outerjoin</span>, and <span class="code-inline">having</span> clauses. These endpoints provide immediate value for potential dashboard clients and demonstrate a deeper understanding of relational data processing.
+            </p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Endpoint</th>
+                        <th>What It Returns</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="endpoint-col">/analytics/top-rated-tracks</td>
+                        <td>Highest-rated tracks with review counts (requires at least 1 review)</td>
+                    </tr>
+                    <tr>
+                        <td class="endpoint-col">/analytics/genre-summary</td>
+                        <td>Track count and average rating per genre</td>
+                    </tr>
+                    <tr>
+                        <td class="endpoint-col">/analytics/top-tags</td>
+                        <td>Most frequently used tags across all tracks</td>
+                    </tr>
+                    <tr>
+                        <td class="endpoint-col">/analytics/mood-distribution</td>
+                        <td>Distribution of mood keywords across the catalogue</td>
+                    </tr>
+                    <tr>
+                        <td class="endpoint-col">/analytics/review-activity</td>
+                        <td>Total reviews, average rating, and per-reviewer breakdown</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </body>
