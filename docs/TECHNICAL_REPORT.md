@@ -3,6 +3,7 @@
 **Module:** XJCO3011 - Web Services and Web Data  
 **Project:** Coursework 1 - Individual Web Services API Development Project  
 **GitHub Repository:** [music-appreciation-api-coursework](https://github.com/15934396020/music-appreciation-api-coursework)  
+**Live Deployment:** https://weidademiaoxiao.pythonanywhere.com  
 **API Documentation:** See `docs/API_DOCUMENTATION.pdf` in the repository  
 
 ---
@@ -43,6 +44,7 @@ The system was designed to meet the following requirements:
 - **Reliability:** Comprehensive error handling with structured JSON error responses and input validation.
 - **Testability:** High test coverage using automated test suites (55 tests across 9 test classes).
 - **Documentation:** Auto-generated interactive API documentation (Swagger UI) and static PDF documentation.
+- **Deployment:** Externally hosted ASGI deployment on PythonAnywhere, accessible at `https://weidademiaoxiao.pythonanywhere.com`.
 
 ## 4. System Design
 
@@ -138,7 +140,7 @@ While the current implementation successfully meets the coursework objectives, s
 
 ## 9. Conclusion
 
-The Music Appreciation and Discovery API successfully demonstrates the design and implementation of a modern, database-backed web service. By leveraging FastAPI and SQLAlchemy, the project delivers a clean, modular, and fully tested RESTful API with 25 endpoints, API key authentication, structured error handling, and 5 analytical query endpoints. The inclusion of comprehensive testing (55 automated tests) and robust input validation ensures the system is not only functional but also resilient and explainable, fully satisfying the criteria for the XJCO3011 coursework.
+The Music Appreciation and Discovery API successfully demonstrates the design and implementation of a modern, database-backed web service. By leveraging FastAPI and SQLAlchemy, the project delivers a clean, modular, externally hosted, and fully tested RESTful API with 25 endpoints, API key authentication, structured error handling, and 5 analytical query endpoints. The live deployment at `https://weidademiaoxiao.pythonanywhere.com` strengthens the coursework submission by showing that the system is not only functional in local development but also accessible on an external web server. The inclusion of comprehensive testing (55 automated tests) and robust input validation ensures the system is resilient, explainable, and well aligned with the criteria for the XJCO3011 coursework.
 
 ---
 

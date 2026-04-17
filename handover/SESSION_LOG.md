@@ -270,3 +270,60 @@ PythonAnywhere 的标准 Web 界面只支持 WSGI 框架（Django, Flask 等）�
 2. 部署后更新文档中的 URL
 3. 推送到 GitHub
 4. 帮用户准备 Minerva 提交
+
+## Session 4 — 2026-04-17
+
+### Summary
+
+This session completed the previously unfinished **external deployment** requirement by successfully deploying the FastAPI application to **PythonAnywhere** as an ASGI web app at `https://weidademiaoxiao.pythonanywhere.com`. After deployment, the key coursework deliverables were updated locally so that the live URL is reflected in the README, technical report, API documentation, and PPTX presentation.
+
+### Completed Work
+
+| Type | Details |
+|---|---|
+| Coursework requirement check | Re-read the brief and confirmed that external hosting is required, while PythonAnywhere is an acceptable example rather than the only allowed platform |
+| PythonAnywhere deployment | Logged into the provided account, removed the default placeholder site, and created a PythonAnywhere ASGI web app on the main domain |
+| Blocker diagnosis | Identified that direct remote dependency installation failed because the PythonAnywhere environment returned `Network is unreachable` when trying to fetch packages from PyPI |
+| Deployment workaround | Created `requirements-deploy.txt`, `scripts/pythonanywhere_start.sh`, and a local `wheelhouse/` so the service could start without relying on remote package installation |
+| Live verification | Verified the deployed service at `https://weidademiaoxiao.pythonanywhere.com` and its `/health` endpoint |
+| README update | Replaced local-only examples with the live deployment URL where appropriate |
+| Technical report update | Added the live deployment URL to `docs/TECHNICAL_REPORT.md` and regenerated `docs/TECHNICAL_REPORT.pdf` |
+| API documentation update | Updated `docs/API_DOCUMENTATION.md` base URL and regenerated `docs/API_DOCUMENTATION.pdf` |
+| Presentation update | Updated `scripts/create_pptx.py` so deployment is no longer framed as future work, then regenerated `docs/PRESENTATION.pptx` |
+| Handover refresh | Rewrote `FOR_NEXT_ACCOUNT.md`, `CURRENT_STATUS.md`, and `NEXT_ACTIONS.md` to reflect the post-deployment state |
+
+### Key Outcome
+
+The project is no longer blocked on external deployment. The main live endpoint is now:
+
+- `https://weidademiaoxiao.pythonanywhere.com`
+
+Supporting live URLs:
+
+- `https://weidademiaoxiao.pythonanywhere.com/health`
+- `https://weidademiaoxiao.pythonanywhere.com/docs`
+- `https://weidademiaoxiao.pythonanywhere.com/redoc`
+
+### Remaining Work for the Current or Next Session
+
+1. Commit and push the local changes to GitHub if this has not already been done.
+2. Reconfirm the live deployment after the final repository sync.
+3. Support the user with Minerva submission and oral-exam preparation if requested.
+
+### Important Files Added or Updated in Session 4
+
+| File | Purpose |
+|---|---|
+| `requirements-deploy.txt` | PythonAnywhere runtime dependency list |
+| `scripts/pythonanywhere_start.sh` | PythonAnywhere startup script |
+| `wheelhouse/` | Offline deployment dependency assets |
+| `README.md` | Live deployment links |
+| `docs/TECHNICAL_REPORT.md` / `.pdf` | Deployment URL updated |
+| `docs/API_DOCUMENTATION.md` / `.pdf` | Base URL updated |
+| `scripts/create_pptx.py` | PPTX source updated for live deployment messaging |
+| `docs/PRESENTATION.pptx` | Regenerated presentation |
+| `handover/deployment_research_notes_2026-04-17.md` | Technical deployment trail |
+
+### Recommendation for Next Session
+
+If the current session stops before pushing, do **not** repeat deployment. Start from repository sync and final submission support instead.

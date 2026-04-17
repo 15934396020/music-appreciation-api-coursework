@@ -226,7 +226,7 @@ def create_presentation():
             ["29 tracks across 8 genres (curated seed data)", "Audio playback / streaming"],
             ["Full CRUD for reviews (Create, Read, Update, Delete)", "Recommendation engine / ML"],
             ["User tags and collection management", "External API integration (Spotify)"],
-            ["5 analytics endpoints with SQL aggregation", "Cloud deployment (future work)"],
+            ["5 analytics endpoints with SQL aggregation", "External deployment on PythonAnywhere"],
             ["API key authentication for write operations", "Per-user OAuth2/JWT (future work)"],
             ["55 automated tests across 9 test classes", "Frontend UI"],
             ["Structured JSON error responses", "Rate limiting (future work)"],
@@ -411,6 +411,7 @@ def create_presentation():
     add_bullet_content(slide, [
         ("GitHub Repository", True, MEDIUM_BLUE, 22),
         "Public repository: github.com/15934396020/music-appreciation-api-coursework",
+        "Live deployment: weidademiaoxiao.pythonanywhere.com",
         "Consistent commit history showing incremental development",
         "Clean branch structure (main branch)",
         "",
@@ -443,6 +444,7 @@ def create_presentation():
         "55 passing automated tests",
         "5 analytics endpoints with SQL aggregation",
         "Comprehensive documentation",
+        "Live external deployment on PythonAnywhere",
     ], left=0.5, top=1.5, width=4, font_size=15)
 
     # Limitations

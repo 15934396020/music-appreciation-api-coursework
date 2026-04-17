@@ -86,10 +86,12 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
 
-The API will be available at `http://127.0.0.1:8000`. Interactive documentation is served at:
+For local development, the API will be available at `http://127.0.0.1:8000`.
 
-- **Swagger UI**: `http://127.0.0.1:8000/docs`
-- **ReDoc**: `http://127.0.0.1:8000/redoc`
+A live externally hosted deployment is also available at `https://weidademiaoxiao.pythonanywhere.com`. Interactive documentation is served at:
+
+- **Swagger UI**: `https://weidademiaoxiao.pythonanywhere.com/docs`
+- **ReDoc**: `https://weidademiaoxiao.pythonanywhere.com/redoc`
 
 ### Authentication
 
@@ -99,7 +101,7 @@ Write operations (POST, PUT, DELETE) require an API key via the `X-API-Key` head
 
 ```bash
 # Example: Create a review (requires API key)
-curl -X POST http://127.0.0.1:8000/reviews \
+curl -X POST https://weidademiaoxiao.pythonanywhere.com/reviews \
   -H "Content-Type: application/json" \
   -H "X-API-Key: music-api-demo-key-2026" \
   -d '{"track_id": 1, "reviewer_name": "Alice", "rating": 5, "comment": "A masterpiece"}'

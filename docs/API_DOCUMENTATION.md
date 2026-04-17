@@ -8,11 +8,13 @@ This document outlines the available endpoints, their parameters, and expected r
 
 ## Base URL
 
-All endpoints are relative to the base URL of the application. In a local development environment, this is typically:
+All endpoints are relative to the base URL of the application. The current live deployment is:
 
 ```text
-http://127.0.0.1:8000
+https://weidademiaoxiao.pythonanywhere.com
 ```
+
+For local development, the equivalent base URL is `http://127.0.0.1:8000`.
 
 ## Authentication
 
@@ -32,7 +34,7 @@ music-api-demo-key-2026
 ### Example Request with Authentication
 
 ```bash
-curl -X POST http://127.0.0.1:8000/reviews \
+curl -X POST https://weidademiaoxiao.pythonanywhere.com/reviews \
   -H "Content-Type: application/json" \
   -H "X-API-Key: music-api-demo-key-2026" \
   -d '{"track_id": 1, "reviewer_name": "Alice", "rating": 5, "comment": "A masterpiece"}'
