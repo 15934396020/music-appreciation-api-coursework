@@ -39,8 +39,35 @@ Any new account must start with:
 | Presentation (PPTX) | DONE | `docs/PRESENTATION.pptx` — 12 professional slides |
 | Presentation (HTML) | DONE | `docs/presentation/` — 10 slides (from Session 2) |
 | GenAI Conversation Log | DONE | `docs/GENAI_CONVERSATION_LOG.md` and `.pdf` |
-| GitHub Sync | DONE | All Session 3 changes pushed to main branch |
+| GitHub Sync | DONE | All Session 3 changes pushed to main branch (commit `b02e6f6`) |
 | Handover Documents | DONE | Updated for next session |
+| **External Deployment** | **NOT DONE** | PythonAnywhere 不原生支持 ASGI/FastAPI，需要用 API 方式部署（见下方说明） |
+
+## CRITICAL: Deployment Issue Discovered
+
+**PythonAnywhere 不原生支持 FastAPI（ASGI 框架）。** 在 Session 3 尝试部署时发现：
+
+1. PythonAnywhere 的标准 Web 界面只支持 WSGI 框架（Django, Flask 等）
+2. FastAPI 是 ASGI 框架，需要通过 PythonAnywhere 的 **ASGI beta API** 部署
+3. 官方文档：https://help.pythonanywhere.com/pages/ASGICommandLine/
+4. 已在 PythonAnywhere 创建了账号并创建了 web app（手动配置模式），但尚未完成 ASGI 配置
+
+**PythonAnywhere 账号信息：**
+- 用户名：`weidademiaoxiao`
+- 密码：`0355woDE!`
+- 域名：`weidademiaoxiao.pythonanywhere.com`
+- 状态：已创建 web app（Manual Configuration, Python 3.10），但 WSGI 文件需要改为 ASGI 配置
+
+**部署方案选择（下一个账号需要决定）：**
+
+| 方案 | 平台 | 难度 | 说明 |
+|---|---|---|---|
+| A | PythonAnywhere ASGI beta | 中 | 需要通过 API token + 命令行配置，参考官方文档 |
+| B | Render.com | 低 | 免费，原生支持 FastAPI，自动从 GitHub 部署 |
+| C | Railway.app | 低 | 免费额度，原生支持 FastAPI |
+| D | Koyeb | 低 | 免费，原生支持 FastAPI |
+
+**推荐方案 B（Render.com）**，因为课程要求只说"hosted on an external web server, e.g. PythonAnywhere"，并非必须用 PythonAnywhere。
 
 ## Session 3 Changes
 
@@ -59,27 +86,7 @@ Any new account must start with:
 - `tests/test_api.py` — 48 → 55 tests (added TestAuthentication class, auth headers)
 - `docs/TECHNICAL_REPORT.md` + `.pdf` — Updated with auth section, fixed track count
 - `docs/API_DOCUMENTATION.md` + `.pdf` — Added auth docs, error format, protected endpoints
-- `README.md` — Added auth section, updated test count, new files in structure
-
-## Implemented Endpoints (25 total)
-
-| Group | Count | Endpoints | Auth Required |
-|---|---|---|---|
-| General | 2 | `/`, `/health` | No |
-| Genres | 2 | `GET /genres`, `GET /genres/{genre_id}` | No |
-| Tracks | 2 | `GET /tracks` (filters + pagination), `GET /tracks/{track_id}` | No |
-| Reviews | 5 | `POST`, `GET` (list), `GET` (by ID), `PUT`, `DELETE` | POST/PUT/DELETE |
-| Tags | 3 | `POST /tags`, `GET /tags`, `DELETE /tags/{tag_id}` | POST/DELETE |
-| Collections | 6 | `POST`, `GET` (list), `GET` (detail), `POST` (add item), `DELETE` (item), `DELETE` (collection) | POST/DELETE |
-| Analytics | 5 | top-rated-tracks, genre-summary, top-tags, mood-distribution, review-activity | No |
-
-## Authentication Details
-
-- **Scheme:** API Key via `X-API-Key` header
-- **Demo Key:** `music-api-demo-key-2026`
-- **Protected:** All POST, PUT, DELETE endpoints
-- **Public:** All GET endpoints (including analytics)
-- **Error codes:** 401 (missing key), 403 (invalid key)
+- `README.md` — Added auth section, test count update, new files in structure
 
 ## Test Status
 
@@ -96,66 +103,18 @@ Test classes:
 8. TestAuthentication (6 tests) — NEW in Session 3
 9. TestValidation (6 tests)
 
-## File Structure
+## Authentication Details
 
-```
-music-appreciation-api-coursework/
-├── app/
-│   ├── __init__.py
-│   ├── main.py              # FastAPI app with lifespan + error handlers
-│   ├── auth.py              # API key authentication
-│   ├── errors.py            # Structured error handling
-│   ├── database.py           # SQLAlchemy engine & session
-│   ├── seed.py               # 29 tracks, 8 genres
-│   ├── models/
-│   │   ├── __init__.py
-│   │   └── entities.py       # 6 SQLAlchemy models
-│   ├── routers/
-│   │   └── api.py            # 25 endpoints (auth on write ops)
-│   └── schemas/
-│       └── entities.py       # Pydantic schemas
-├── tests/
-│   ├── conftest.py           # Session-scoped TestClient + auth fixture
-│   └── test_api.py           # 55 automated tests
-├── docs/
-│   ├── API_DOCUMENTATION.md
-│   ├── API_DOCUMENTATION.pdf
-│   ├── TECHNICAL_REPORT.md
-│   ├── TECHNICAL_REPORT.pdf
-│   ├── TECHNICAL_REPORT.tex  # LaTeX source (Session 2)
-│   ├── PRESENTATION.pptx     # 12-slide PowerPoint
-│   ├── GENAI_CONVERSATION_LOG.md
-│   ├── GENAI_CONVERSATION_LOG.pdf
-│   └── presentation/         # 10 HTML slides (Session 2)
-├── handover/
-│   ├── FOR_NEXT_ACCOUNT.md
-│   ├── CURRENT_STATUS.md     # This file
-│   ├── NEXT_ACTIONS.md
-│   ├── SESSION_LOG.md
-│   ├── OPEN_QUESTIONS.md
-│   └── USER_MESSAGE_TEMPLATE.md
-├── scripts/
-│   ├── run.sh
-│   └── create_pptx.py
-├── requirements.txt
-├── pytest.ini
-├── .gitignore
-└── README.md
-```
+- **Scheme:** API Key via `X-API-Key` header
+- **Demo Key:** `music-api-demo-key-2026`
+- **Protected:** All POST, PUT, DELETE endpoints
+- **Public:** All GET endpoints (including analytics)
+- **Error codes:** 401 (missing key), 403 (invalid key)
 
 ## Remaining Work
 
 | Priority | Task | Status |
 |---|---|---|
-| 1 | 准备 Minerva 提交材料（打包所有 PDF + PPTX） | Pending |
-| 2 | 准备口头答辩（5分钟演示 + 5分钟Q&A） | Pending |
-| 3 | 可选：LaTeX 重新编译报告（如需更精美格式） | Optional |
-
-## Guidance for Next Session
-
-下一个账号应该：
-1. **不要重建项目**——核心代码、测试、认证、文档全部已完成且稳定。
-2. 重点帮助用户准备 Minerva 提交和口头答辩。
-3. 如果用户需要，可以帮助准备答辩笔记/提纲。
-4. 确保所有提交材料齐全后推送到 GitHub。
-5. 结束前更新所有交接文档。
+| **1** | **部署到外部平台（50+ 分必需）** | **NOT DONE — 最高优先级** |
+| 2 | 准备 Minerva 提交材料 | Pending |
+| 3 | 准备口头答辩 | Pending |

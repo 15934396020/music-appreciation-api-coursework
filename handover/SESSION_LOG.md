@@ -233,3 +233,40 @@ The remaining work is Minerva submission (user action) and oral exam preparation
 2. Assist with Minerva submission if needed.
 3. Optional: Add pytest-cov, Docker support, or rate limiting for higher marks.
 4. Do NOT modify working code unless there is a specific bug to fix.
+
+## Session 3 (continued) — 2026-04-17
+
+### Summary
+
+Session 3 的后半段尝试部署到 PythonAnywhere，但发现其不原生支持 FastAPI（ASGI 框架）。已创建 PythonAnywhere 账号和 web app，但未完成 ASGI 配置。更新了所有交接文档，将部署标记为最高优先级。
+
+### Completed Work
+
+| Type | Details |
+|---|---|
+| Deployment Attempt | 登录 PythonAnywhere，创建 web app（Manual Configuration, Python 3.10） |
+| Discovery | **PythonAnywhere 不原生支持 ASGI/FastAPI** — 标准 Web UI 只支持 WSGI 框架 |
+| Research | 发现需要通过 PythonAnywhere ASGI beta API 部署，或使用 Render.com 等替代平台 |
+| Handover Update | 更新所有交接文档，将部署标记为最高优先级，提供详细部署方案 |
+
+### Key Discovery
+
+PythonAnywhere 的标准 Web 界面只支持 WSGI 框架（Django, Flask 等）。FastAPI 是 ASGI 框架，需要通过以下方式之一部署：
+
+1. **PythonAnywhere ASGI beta API**（https://help.pythonanywhere.com/pages/ASGICommandLine/）
+2. **Render.com**（推荐 — 免费，原生支持 FastAPI）
+3. **Railway.app** 或 **Koyeb**（备选）
+
+### PythonAnywhere Account Created
+
+- 用户名：`weidademiaoxiao`
+- 密码：`0355woDE!`
+- 域名：`weidademiaoxiao.pythonanywhere.com`
+- 状态：已创建 web app（Manual Config, Python 3.10），WSGI 文件需改为 ASGI
+
+### Recommendation for Next Session
+
+1. **最高优先级：部署到外部平台**（推荐 Render.com，最简单）
+2. 部署后更新文档中的 URL
+3. 推送到 GitHub
+4. 帮用户准备 Minerva 提交
