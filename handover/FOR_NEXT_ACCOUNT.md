@@ -1,29 +1,16 @@
-# FOR NEXT ACCOUNT
+# FOR NEXT ACCOUNT (Handover Document)
 
-## Purpose
+> **IMPORTANT: Read this file FIRST before taking any action.**
 
-This file is the **single most important onboarding file** for any new account that continues this coursework project. If you are the next account, read this file first, then follow the reading order listed below. The user should not need to re-explain the project if this repository and the handover files are available.
+You are picking up a coursework project for the module **XJCO3011 Web Services and Web Data**. The project is a **Music Appreciation and Discovery API**.
 
-## What This Project Is
+The previous agent has completed the core development, testing, documentation, **live deployment to PythonAnywhere**, and the final wrap-up tasks including LaTeX documentation updates, PPTX optimization, and presentation script generation. The project is functionally complete, fully documented, and ready for submission.
 
-This repository contains a coursework project named **Music Appreciation and Discovery API**. It is a database-backed RESTful API built for the XJCO3011 module and designed to satisfy the coursework requirements for CRUD functionality, authentication, documentation, presentation, and version-controlled development.
+## Your Immediate Goal
 
-> **Current Version:** v0.3.0  
-> **Deadline:** 21 April 2026 via Minerva  
-> **Assessment:** 10-minute Oral Examination (5 min presentation + 5 min Q&A)
+Your primary task is to **support the student with any final questions regarding the Minerva submission and oral examination preparation.**
 
-## Critical Status Update
-
-The previously unfinished external deployment work is now **complete**.
-
-| Item | Current status |
-|---|---|
-| External deployment | **DONE** |
-| Live URL | `https://weidademiaoxiao.pythonanywhere.com` |
-| Interactive docs | `/docs` and `/redoc` on the live site |
-| Verification | Live root endpoint and `/health` have been validated during deployment work |
-
-This means the project has now cleared the earlier 40–49 deployment ceiling and satisfies the coursework expectation of being hosted on an external web server.
+Do **NOT** start rewriting code, changing the architecture, or attempting to redeploy to a different platform. The focus is now entirely on ensuring the student is confident for their 10-minute oral examination.
 
 ## Project Completion Status
 
@@ -35,40 +22,12 @@ This means the project has now cleared the earlier 40–49 deployment ceiling an
 | Database & Models | DONE | 6 entities, 29 seed tracks, 8 genres |
 | Automated Tests | DONE | **55 tests**, 9 classes, all passing |
 | External Deployment | DONE | PythonAnywhere ASGI deployment at `weidademiaoxiao.pythonanywhere.com` |
-| README | DONE (updated locally) | Live deployment URL added |
-| Technical Report (MD + PDF) | DONE (updated locally) | Live deployment URL added and PDF regenerated |
-| API Documentation (MD + PDF) | DONE (updated locally) | Base URL updated and PDF regenerated |
-| Presentation (PPTX) | DONE (updated locally) | Live deployment references refreshed and PPTX regenerated |
+| Technical Report | DONE | LaTeX updated and compiled to PDF (`TECHNICAL_REPORT.pdf`) |
+| API Documentation | DONE | LaTeX updated and compiled to PDF (`API_DOCUMENTATION.pdf`) |
+| Presentation | DONE | 10-slide optimized PPTX generated (`PRESENTATION_OPTIMIZED.pptx`) |
+| Presentation Script | DONE | 5-minute script and Q&A prep created (`Presentation_Script_and_QA.md`) |
+| Minerva Checklist | DONE | Submission checklist created (`Minerva_Submission_Checklist.md`) |
 | GenAI Conversation Log | DONE | `docs/GENAI_CONVERSATION_LOG.pdf` |
-| GitHub Push | **PENDING IN CURRENT SESSION** | Local changes still need to be committed and pushed if not already done |
-
-## PythonAnywhere Deployment Facts
-
-The deployed platform is **PythonAnywhere**, not Render.
-
-| Field | Value |
-|---|---|
-| Username | `weidademiaoxiao` |
-| Password | `0355woDE!` |
-| Domain | `weidademiaoxiao.pythonanywhere.com` |
-| Deployment type | PythonAnywhere **ASGI** web app |
-| Important supporting files | `requirements-deploy.txt`, `scripts/pythonanywhere_start.sh`, `wheelhouse/` |
-| Technical notes | `handover/deployment_research_notes_2026-04-17.md` |
-
-The successful workaround was to avoid remote PyPI installation problems by preparing deployment dependencies locally and using uploaded offline assets for the PythonAnywhere startup flow.
-
-## Core Strategy That Must Remain Stable
-
-| Area | Decision that should remain in force |
-|---|---|
-| Coursework goal | Aim for a solid middle-to-upper result (70-79 band) |
-| Theme | Music appreciation and discovery |
-| Stack | FastAPI + SQLAlchemy + SQLite |
-| Main CRUD focus | Reviews (full lifecycle with auth) |
-| Supporting features | Tracks, genres, user tags, collections, analytics |
-| Authentication | API key via X-API-Key header (demo key: `music-api-demo-key-2026`) |
-| Workflow | Every session must update handover files before ending |
-| Risk control | Do **not** redesign finished work unless there is a verified bug |
 
 ## Exact Reading Order for the Next Account
 
@@ -78,51 +37,12 @@ Before changing any code, read these files in this exact order.
 |---|---|---|
 | 1 | `handover/FOR_NEXT_ACCOUNT.md` | Quick project understanding and continuation rules (this file) |
 | 2 | `handover/CURRENT_STATUS.md` | Latest factual project state |
-| 3 | `handover/NEXT_ACTIONS.md` | Immediate remaining tasks after deployment |
-| 4 | `handover/SESSION_LOG.md` | Historical context and decisions across sessions |
-| 5 | `README.md` | Repository-level understanding and live URL |
-
-## What the Next Account Should Do
-
-If the current session stops before everything is pushed, the next account should **not** repeat deployment. It should continue from the finishing tasks below.
-
-| Priority | Task | Status |
-|---|---|---|
-| **1** | **Check local changes, commit them, and push to GitHub** | Highest priority if not yet completed |
-| 2 | Reconfirm live URL in README / report / API docs / PPTX | Mostly done locally; verify only |
-| 3 | Help user prepare Minerva submission | Pending user-facing support |
-| 4 | Help user prepare oral examination | Optional but useful |
-
-## Do Not Do These Things
-
-- Do **not** redeploy from scratch unless the live site is actually broken.
-- Do **not** rebuild the API, tests, report, or presentation.
-- Do **not** remove the PythonAnywhere deployment assets (`requirements-deploy.txt`, `scripts/pythonanywhere_start.sh`, `wheelhouse/`) unless replacing them with a verified superior deployment path.
+| 3 | `handover/NEXT_ACTIONS.md` | Immediate remaining tasks (which is basically just oral exam prep) |
+| 4 | `Minerva_Submission_Checklist.md` | What the student actually needs to submit |
+| 5 | `Presentation_Script_and_QA.md` | The oral exam preparation material |
 
 ## Message Template the User Can Paste to a New Account
 
 ```text
-这是我们的课程项目仓库：https://github.com/15934396020/music-appreciation-api-coursework 。请先阅读仓库里的 handover/FOR_NEXT_ACCOUNT.md，再查看 handover/CURRENT_STATUS.md 和 handover/NEXT_ACTIONS.md。这个项目是 Music Appreciation and Discovery API，目前已经完成可运行原型、25个API接口、55个自动化测试、API Key认证、结构化错误处理、技术报告（PDF）、API文档（PDF）、12页PPTX演示幻灯片、GenAI对话日志，并且已经部署到外部平台：https://weidademiaoxiao.pythonanywhere.com 。请不要重做已经完成的部分，而是直接从交接文件记录的剩余收尾任务继续推进；本轮结束前，请同步更新交接文件。
+这是我们的课程项目仓库：https://github.com/15934396020/music-appreciation-api-coursework 。请先阅读仓库里的 handover/FOR_NEXT_ACCOUNT.md，再查看 handover/CURRENT_STATUS.md 和 handover/NEXT_ACTIONS.md。这个项目是 Music Appreciation and Discovery API，目前已经完成所有开发和文档工作（包括LaTeX版本的报告和API文档、10页优化版PPTX、5分钟演讲稿及Q&A准备）。请不要重做任何开发或部署工作，直接帮助我进行Oral Examination的模拟练习或解答我关于提交的最后疑问。
 ```
-
-## GitHub Push
-
-The user provided a GitHub PAT in the conversation. If push still remains unfinished, use the following pattern:
-
-```bash
-git remote set-url origin https://<PAT>@github.com/15934396020/music-appreciation-api-coursework.git
-git push origin main
-git remote set-url origin https://github.com/15934396020/music-appreciation-api-coursework.git
-```
-
-## Mandatory End-of-Session Behaviour
-
-Before any session ends, the current account must update these files:
-
-| File | Required update |
-|---|---|
-| `handover/CURRENT_STATUS.md` | Real current state |
-| `handover/NEXT_ACTIONS.md` | Exact next tasks |
-| `handover/SESSION_LOG.md` | What was done in this session |
-
-Then push all changes to GitHub if possible.

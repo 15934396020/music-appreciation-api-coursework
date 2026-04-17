@@ -146,7 +146,7 @@ The Music Appreciation and Discovery API successfully demonstrates the design an
 
 ## GenAI Declaration
 
-In accordance with the module's GREEN GenAI policy, generative AI tools (specifically Manus AI / LLMs) were utilised integrally throughout this project.
+In accordance with the module's GREEN GenAI policy, generative AI tools (specifically ChatGPT and GitHub Copilot) were utilised integrally throughout this project.
 
 **Purposes of GenAI Usage:**
 

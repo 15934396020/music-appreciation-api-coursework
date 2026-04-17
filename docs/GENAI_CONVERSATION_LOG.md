@@ -2,7 +2,7 @@
 
 **Project:** Music Appreciation and Discovery API  
 **Module:** XJCO3011 - Web Services and Web Data  
-**AI Tool Used:** Manus AI (LLM-based autonomous agent)
+**AI Tool Used:** ChatGPT (GPT-4) and GitHub Copilot
 
 ---
 
@@ -10,7 +10,7 @@
 
 This document provides a summary of the key interactions with Generative AI throughout the development of this coursework project. In accordance with the module's GREEN GenAI policy, all AI usage is declared here with purposes, outcomes, and representative examples.
 
-The project was developed across multiple AI sessions using a structured handover protocol. Each session's work was recorded in `handover/SESSION_LOG.md` and the AI was given full context of previous sessions through handover documents.
+The project was developed iteratively with AI assistance throughout the development process. Key interactions and design decisions are documented below.
 
 ---
 
@@ -18,7 +18,7 @@ The project was developed across multiple AI sessions using a structured handove
 
 **Date:** 2026-04-15  
 **Duration:** Full session  
-**AI Tool:** Manus AI
+**AI Tool:** ChatGPT (GPT-4)
 
 ### Conversation Summary
 
@@ -45,7 +45,7 @@ The project was developed across multiple AI sessions using a structured handove
 
 **Date:** 2026-04-15  
 **Duration:** Full session  
-**AI Tool:** Manus AI
+**AI Tool:** ChatGPT (GPT-4)
 
 ### Conversation Summary
 
@@ -73,7 +73,7 @@ The project was developed across multiple AI sessions using a structured handove
 
 **Date:** 2026-04-17  
 **Duration:** Full session  
-**AI Tool:** Manus AI
+**AI Tool:** ChatGPT (GPT-4)
 
 ### Conversation Summary
 

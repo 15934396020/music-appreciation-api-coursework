@@ -97,7 +97,7 @@
     
     \vspace{2cm}
     
-    {\Large\bfseries Author: Manus AI\par}
+    {\Large\bfseries Zeyu Shen\par}
     \vspace{0.5cm}
     {\large \today\par}
     
@@ -105,8 +105,8 @@
     
     \begin{tcolorbox}[colback=white,colframe=secondary,boxrule=1pt,arc=4pt,width=0.8\textwidth,center]
     \centering
-    \textbf{Base URL:} \texttt{http://127.0.0.1:8000} \\
-    \textbf{Authentication:} None required for this coursework prototype.
+    \textbf{Base URL:} \texttt{https://weidademiaoxiao.pythonanywhere.com} \\
+    \textbf{Authentication:} API Key required for write operations (\texttt{X-API-Key}).
     \end{tcolorbox}
     
     \vspace{1cm}
@@ -135,7 +135,7 @@ Returns a welcome message and links to the interactive documentation.
   "message": "Music Appreciation and Discovery API is running.",
   "docs": "/docs",
   "redoc": "/redoc",
-  "version": "0.2.0"
+  "version": "0.3.0"
 }
 \end{lstlisting}
 \end{itemize}
@@ -206,8 +206,9 @@ Retrieves a specific track by its ID.
 \subsection{4. Reviews}
 
 \subsubsection*{\methodPOST \texttt{ /reviews}}
-Creates a new review for a track.
+Creates a new review for a track. Requires API Key.
 \begin{itemize}[label=\textcolor{primary}{\textbullet}, noitemsep]
+    \item \textbf{Headers:} \texttt{X-API-Key: <your-api-key>}
     \item \textbf{Request Body:}
 \begin{lstlisting}[language=json]
 {
@@ -245,8 +246,9 @@ Retrieves a specific review by its ID.
 \end{itemize}
 
 \subsubsection*{\methodPUT \texttt{ /reviews/\{review\_id\}}}
-Updates an existing review. Supports partial updates.
+Updates an existing review. Supports partial updates. Requires API Key.
 \begin{itemize}[label=\textcolor{primary}{\textbullet}, noitemsep]
+    \item \textbf{Headers:} \texttt{X-API-Key: <your-api-key>}
     \item \textbf{Parameters:} \texttt{review\_id} (path, integer)
     \item \textbf{Request Body:} (All fields optional)
 \begin{lstlisting}[language=json]
@@ -260,8 +262,9 @@ Updates an existing review. Supports partial updates.
 \end{itemize}
 
 \subsubsection*{\methodDELETE \texttt{ /reviews/\{review\_id\}}}
-Deletes a review by its ID.
+Deletes a review by its ID. Requires API Key.
 \begin{itemize}[label=\textcolor{primary}{\textbullet}, noitemsep]
+    \item \textbf{Headers:} \texttt{X-API-Key: <your-api-key>}
     \item \textbf{Parameters:} \texttt{review\_id} (path, integer)
     \item \textbf{Response (204 No Content):} Successful deletion.
     \item \textbf{Response (404 Not Found):} If the review does not exist.
@@ -270,8 +273,9 @@ Deletes a review by its ID.
 \subsection{5. Tags}
 
 \subsubsection*{\methodPOST \texttt{ /tags}}
-Creates a new user tag for a track.
+Creates a new user tag for a track. Requires API Key.
 \begin{itemize}[label=\textcolor{primary}{\textbullet}, noitemsep]
+    \item \textbf{Headers:} \texttt{X-API-Key: <your-api-key>}
     \item \textbf{Request Body:}
 \begin{lstlisting}[language=json]
 {
@@ -293,8 +297,9 @@ Retrieves a list of user tags, optionally filtered by track.
 \end{itemize}
 
 \subsubsection*{\methodDELETE \texttt{ /tags/\{tag\_id\}}}
-Deletes a user tag by its ID.
+Deletes a user tag by its ID. Requires API Key.
 \begin{itemize}[label=\textcolor{primary}{\textbullet}, noitemsep]
+    \item \textbf{Headers:} \texttt{X-API-Key: <your-api-key>}
     \item \textbf{Parameters:} \texttt{tag\_id} (path, integer)
     \item \textbf{Response (204 No Content):} Successful deletion.
     \item \textbf{Response (404 Not Found):} If the tag does not exist.
@@ -303,8 +308,9 @@ Deletes a user tag by its ID.
 \subsection{6. Collections}
 
 \subsubsection*{\methodPOST \texttt{ /collections}}
-Creates a new track collection.
+Creates a new track collection. Requires API Key.
 \begin{itemize}[label=\textcolor{primary}{\textbullet}, noitemsep]
+    \item \textbf{Headers:} \texttt{X-API-Key: <your-api-key>}
     \item \textbf{Request Body:}
 \begin{lstlisting}[language=json]
 {
@@ -332,8 +338,9 @@ Retrieves a specific collection along with its track items.
 \end{itemize}
 
 \subsubsection*{\methodPOST \texttt{ /collections/\{collection\_id\}/items}}
-Adds a track to an existing collection.
+Adds a track to an existing collection. Requires API Key.
 \begin{itemize}[label=\textcolor{primary}{\textbullet}, noitemsep]
+    \item \textbf{Headers:} \texttt{X-API-Key: <your-api-key>}
     \item \textbf{Parameters:} \texttt{collection\_id} (path, integer)
     \item \textbf{Request Body:}
 \begin{lstlisting}[language=json]
@@ -348,16 +355,18 @@ Adds a track to an existing collection.
 \end{itemize}
 
 \subsubsection*{\methodDELETE \texttt{ /collections/\{collection\_id\}}}
-Deletes a collection and all its items.
+Deletes a collection and all its items. Requires API Key.
 \begin{itemize}[label=\textcolor{primary}{\textbullet}, noitemsep]
+    \item \textbf{Headers:} \texttt{X-API-Key: <your-api-key>}
     \item \textbf{Parameters:} \texttt{collection\_id} (path, integer)
     \item \textbf{Response (204 No Content):} Successful deletion.
     \item \textbf{Response (404 Not Found):} If the collection does not exist.
 \end{itemize}
 
 \subsubsection*{\methodDELETE \texttt{ /collections/\{collection\_id\}/items/\{item\_id\}}}
-Removes a specific track item from a collection.
+Removes a specific track item from a collection. Requires API Key.
 \begin{itemize}[label=\textcolor{primary}{\textbullet}, noitemsep]
+    \item \textbf{Headers:} \texttt{X-API-Key: <your-api-key>}
     \item \textbf{Parameters:} 
     \begin{itemize}[label=--, noitemsep]
         \item \texttt{collection\_id} (path, integer)
