@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This project is a coursework API for **music appreciation and discovery**, built as part of the XJCO3011 Designing and Building User Interfaces module. It provides a data-driven web service that supports track browsing, genre exploration, review management (full CRUD), user-generated tags, personal collections, and analytical endpoints. The implementation prioritises clarity, stability, and explainability.
+This project is a coursework API for **music appreciation and discovery**, built as part of the XJCO3011 Web Services and Web Data module. It provides a data-driven web service that supports track browsing, genre exploration, review management (full CRUD), user-generated tags, personal collections, and analytical endpoints. **Write operations are protected by API key authentication**, and all errors return structured JSON responses. The implementation prioritises clarity, stability, and explainability.
 
 ## Coursework Positioning
 
@@ -17,6 +17,8 @@ The project satisfies the module requirement of a database-backed API with CRUD 
 | User interaction | Tags (create, list, delete) and collections (create, manage items, delete) |
 | Filtering | Search tracks by title, artist, genre, mood with pagination and sorting |
 | Analytics | Top-rated tracks, genre summary, top tags, mood distribution, review activity |
+| Authentication | API key-based auth for write operations (X-API-Key header) |
+| Error handling | Structured JSON error responses with machine-readable codes |
 | Documentation | Swagger UI, ReDoc, technical report, API documentation |
 
 ## Technical Stack
@@ -38,6 +40,8 @@ music-appreciation-api-coursework/
 ├── app/
 │   ├── __init__.py
 │   ├── main.py              # Application entry point with lifespan
+│   ├── auth.py              # API key authentication module
+│   ├── errors.py            # Structured error handling
 │   ├── database.py           # SQLAlchemy engine and session setup
 │   ├── seed.py               # Initial data seeding (29 tracks, 8 genres)
 │   ├── models/
@@ -50,10 +54,12 @@ music-appreciation-api-coursework/
 │       ├── __init__.py
 │       └── entities.py       # Pydantic request/response schemas
 ├── tests/
-│   ├── conftest.py           # Shared test fixtures
-│   └── test_api.py           # 48 comprehensive test cases
-├── docs/                     # Technical report and API documentation
+│   ├── conftest.py           # Shared test fixtures (incl. auth headers)
+│   └── test_api.py           # 55 comprehensive test cases
+├── docs/                     # Reports, API docs, presentation, GenAI log
 ├── handover/                 # Cross-session handover documents
+├── scripts/
+│   └── create_pptx.py        # PPTX generation script
 ├── requirements.txt
 ├── pytest.ini
 └── README.md
@@ -85,43 +91,57 @@ The API will be available at `http://127.0.0.1:8000`. Interactive documentation 
 - **Swagger UI**: `http://127.0.0.1:8000/docs`
 - **ReDoc**: `http://127.0.0.1:8000/redoc`
 
+### Authentication
+
+Write operations (POST, PUT, DELETE) require an API key via the `X-API-Key` header. Read operations (GET) are publicly accessible.
+
+**Demo API Key:** `music-api-demo-key-2026`
+
+```bash
+# Example: Create a review (requires API key)
+curl -X POST http://127.0.0.1:8000/reviews \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: music-api-demo-key-2026" \
+  -d '{"track_id": 1, "reviewer_name": "Alice", "rating": 5, "comment": "A masterpiece"}'
+```
+
 ### Running Tests
 
 ```bash
-pytest -q
+python -m pytest -v
 ```
 
-All 48 tests should pass, covering general endpoints, genre and track browsing, review CRUD, tags, collections, analytics, and input validation.
+All **55 tests** across **9 test classes** should pass, covering general endpoints, genre and track browsing, review CRUD, tags, collections, analytics, authentication, and input validation.
 
 ## API Endpoints Overview
 
-| Method | Path | Description |
-|---|---|---|
-| GET | `/` | Welcome message and links |
-| GET | `/health` | Health check |
-| GET | `/genres` | List all genres |
-| GET | `/genres/{id}` | Get genre by ID |
-| GET | `/tracks` | List tracks (with filtering, sorting, pagination) |
-| GET | `/tracks/{id}` | Get track by ID |
-| POST | `/reviews` | Create a review |
-| GET | `/reviews` | List reviews (with filtering) |
-| GET | `/reviews/{id}` | Get review by ID |
-| PUT | `/reviews/{id}` | Update a review |
-| DELETE | `/reviews/{id}` | Delete a review |
-| POST | `/tags` | Create a tag |
-| GET | `/tags` | List tags |
-| DELETE | `/tags/{id}` | Delete a tag |
-| POST | `/collections` | Create a collection |
-| GET | `/collections` | List collections |
-| GET | `/collections/{id}` | Get collection with items |
-| POST | `/collections/{id}/items` | Add track to collection |
-| DELETE | `/collections/{id}` | Delete a collection |
-| DELETE | `/collections/{id}/items/{item_id}` | Remove item from collection |
-| GET | `/analytics/top-rated-tracks` | Top-rated tracks |
-| GET | `/analytics/genre-summary` | Genre statistics |
-| GET | `/analytics/top-tags` | Most-used tags |
-| GET | `/analytics/mood-distribution` | Mood distribution |
-| GET | `/analytics/review-activity` | Review activity summary |
+| Method | Path | Auth | Description |
+|---|---|---|---|
+| GET | `/` | No | Welcome message and links |
+| GET | `/health` | No | Health check |
+| GET | `/genres` | No | List all genres |
+| GET | `/genres/{id}` | No | Get genre by ID |
+| GET | `/tracks` | No | List tracks (with filtering, sorting, pagination) |
+| GET | `/tracks/{id}` | No | Get track by ID |
+| POST | `/reviews` | **Yes** | Create a review |
+| GET | `/reviews` | No | List reviews (with filtering) |
+| GET | `/reviews/{id}` | No | Get review by ID |
+| PUT | `/reviews/{id}` | **Yes** | Update a review |
+| DELETE | `/reviews/{id}` | **Yes** | Delete a review |
+| POST | `/tags` | **Yes** | Create a tag |
+| GET | `/tags` | No | List tags |
+| DELETE | `/tags/{id}` | **Yes** | Delete a tag |
+| POST | `/collections` | **Yes** | Create a collection |
+| GET | `/collections` | No | List collections |
+| GET | `/collections/{id}` | No | Get collection with items |
+| POST | `/collections/{id}/items` | **Yes** | Add track to collection |
+| DELETE | `/collections/{id}` | **Yes** | Delete a collection |
+| DELETE | `/collections/{id}/items/{item_id}` | **Yes** | Remove item from collection |
+| GET | `/analytics/top-rated-tracks` | No | Top-rated tracks |
+| GET | `/analytics/genre-summary` | No | Genre statistics |
+| GET | `/analytics/top-tags` | No | Most-used tags |
+| GET | `/analytics/mood-distribution` | No | Mood distribution |
+| GET | `/analytics/review-activity` | No | Review activity summary |
 
 ## Multi-Account Collaboration
 

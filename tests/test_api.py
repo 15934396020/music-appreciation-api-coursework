@@ -16,7 +16,7 @@ class TestGeneralEndpoints:
         body = response.json()
         assert "message" in body
         assert "docs" in body
-        assert body["version"] == "0.2.0"
+        assert body["version"] == "0.3.0"
 
     def test_health_endpoint(self, test_client):
         response = test_client.get("/health")
@@ -119,7 +119,7 @@ class TestTrackEndpoints:
 class TestReviewCRUD:
     """Tests for the full review lifecycle."""
 
-    def test_create_review(self, test_client):
+    def test_create_review(self, test_client, auth_headers):
         response = test_client.post(
             "/reviews",
             json={
@@ -128,13 +128,14 @@ class TestReviewCRUD:
                 "rating": 4,
                 "comment": "A beautiful and dreamy piece.",
             },
+            headers=auth_headers,
         )
         assert response.status_code == 201
         data = response.json()
         assert data["rating"] == 4
         assert data["track_id"] == 1
 
-    def test_create_review_invalid_track(self, test_client):
+    def test_create_review_invalid_track(self, test_client, auth_headers):
         response = test_client.post(
             "/reviews",
             json={
@@ -143,10 +144,11 @@ class TestReviewCRUD:
                 "rating": 3,
                 "comment": "This track does not exist.",
             },
+            headers=auth_headers,
         )
         assert response.status_code == 404
 
-    def test_create_review_invalid_rating(self, test_client):
+    def test_create_review_invalid_rating(self, test_client, auth_headers):
         response = test_client.post(
             "/reviews",
             json={
@@ -155,6 +157,7 @@ class TestReviewCRUD:
                 "rating": 6,
                 "comment": "Rating out of range.",
             },
+            headers=auth_headers,
         )
         assert response.status_code == 422
 
@@ -163,7 +166,7 @@ class TestReviewCRUD:
         assert response.status_code == 200
         assert isinstance(response.json(), list)
 
-    def test_list_reviews_filter_by_track(self, test_client):
+    def test_list_reviews_filter_by_track(self, test_client, auth_headers):
         test_client.post(
             "/reviews",
             json={
@@ -172,6 +175,7 @@ class TestReviewCRUD:
                 "rating": 5,
                 "comment": "Elegant and calm.",
             },
+            headers=auth_headers,
         )
         response = test_client.get("/reviews?track_id=2")
         assert response.status_code == 200
@@ -184,7 +188,7 @@ class TestReviewCRUD:
         data = response.json()
         assert all(r["rating"] >= 4 for r in data)
 
-    def test_full_review_crud_flow(self, test_client):
+    def test_full_review_crud_flow(self, test_client, auth_headers):
         # Create
         create_resp = test_client.post(
             "/reviews",
@@ -194,6 +198,7 @@ class TestReviewCRUD:
                 "rating": 3,
                 "comment": "Interesting rhythm.",
             },
+            headers=auth_headers,
         )
         assert create_resp.status_code == 201
         review_id = create_resp.json()["id"]
@@ -207,27 +212,29 @@ class TestReviewCRUD:
         update_resp = test_client.put(
             f"/reviews/{review_id}",
             json={"rating": 5, "comment": "Actually, this is outstanding."},
+            headers=auth_headers,
         )
         assert update_resp.status_code == 200
         assert update_resp.json()["rating"] == 5
 
         # Delete
-        delete_resp = test_client.delete(f"/reviews/{review_id}")
+        delete_resp = test_client.delete(f"/reviews/{review_id}", headers=auth_headers)
         assert delete_resp.status_code == 204
 
         # Verify deletion
         verify_resp = test_client.get(f"/reviews/{review_id}")
         assert verify_resp.status_code == 404
 
-    def test_update_review_not_found(self, test_client):
+    def test_update_review_not_found(self, test_client, auth_headers):
         response = test_client.put(
             "/reviews/9999",
             json={"rating": 2},
+            headers=auth_headers,
         )
         assert response.status_code == 404
 
-    def test_delete_review_not_found(self, test_client):
-        response = test_client.delete("/reviews/9999")
+    def test_delete_review_not_found(self, test_client, auth_headers):
+        response = test_client.delete("/reviews/9999", headers=auth_headers)
         assert response.status_code == 404
 
 
@@ -238,7 +245,7 @@ class TestReviewCRUD:
 class TestTagEndpoints:
     """Tests for user tag creation and listing."""
 
-    def test_create_tag(self, test_client):
+    def test_create_tag(self, test_client, auth_headers):
         response = test_client.post(
             "/tags",
             json={
@@ -246,11 +253,12 @@ class TestTagEndpoints:
                 "tag_name": "peaceful",
                 "created_by": "Tag Tester",
             },
+            headers=auth_headers,
         )
         assert response.status_code == 201
         assert response.json()["tag_name"] == "peaceful"
 
-    def test_create_duplicate_tag(self, test_client):
+    def test_create_duplicate_tag(self, test_client, auth_headers):
         test_client.post(
             "/tags",
             json={
@@ -258,6 +266,7 @@ class TestTagEndpoints:
                 "tag_name": "unique-dup-test",
                 "created_by": "Dup Tester",
             },
+            headers=auth_headers,
         )
         response = test_client.post(
             "/tags",
@@ -266,10 +275,11 @@ class TestTagEndpoints:
                 "tag_name": "unique-dup-test",
                 "created_by": "Dup Tester",
             },
+            headers=auth_headers,
         )
         assert response.status_code == 409
 
-    def test_create_tag_invalid_track(self, test_client):
+    def test_create_tag_invalid_track(self, test_client, auth_headers):
         response = test_client.post(
             "/tags",
             json={
@@ -277,6 +287,7 @@ class TestTagEndpoints:
                 "tag_name": "ghost",
                 "created_by": "Nobody",
             },
+            headers=auth_headers,
         )
         assert response.status_code == 404
 
@@ -291,7 +302,7 @@ class TestTagEndpoints:
         data = response.json()
         assert all(t["track_id"] == 1 for t in data)
 
-    def test_delete_tag(self, test_client):
+    def test_delete_tag(self, test_client, auth_headers):
         create_resp = test_client.post(
             "/tags",
             json={
@@ -299,13 +310,14 @@ class TestTagEndpoints:
                 "tag_name": "to-delete",
                 "created_by": "Deleter",
             },
+            headers=auth_headers,
         )
         tag_id = create_resp.json()["id"]
-        delete_resp = test_client.delete(f"/tags/{tag_id}")
+        delete_resp = test_client.delete(f"/tags/{tag_id}", headers=auth_headers)
         assert delete_resp.status_code == 204
 
-    def test_delete_tag_not_found(self, test_client):
-        response = test_client.delete("/tags/9999")
+    def test_delete_tag_not_found(self, test_client, auth_headers):
+        response = test_client.delete("/tags/9999", headers=auth_headers)
         assert response.status_code == 404
 
 
@@ -316,7 +328,7 @@ class TestTagEndpoints:
 class TestCollectionEndpoints:
     """Tests for collection management."""
 
-    def test_create_collection(self, test_client):
+    def test_create_collection(self, test_client, auth_headers):
         response = test_client.post(
             "/collections",
             json={
@@ -324,17 +336,19 @@ class TestCollectionEndpoints:
                 "description": "A test collection.",
                 "created_by": "Collection Tester",
             },
+            headers=auth_headers,
         )
         assert response.status_code == 201
         assert response.json()["name"] == "Test Collection Alpha"
 
-    def test_create_duplicate_collection(self, test_client):
+    def test_create_duplicate_collection(self, test_client, auth_headers):
         test_client.post(
             "/collections",
             json={
                 "name": "Duplicate Test Col",
                 "created_by": "Tester",
             },
+            headers=auth_headers,
         )
         response = test_client.post(
             "/collections",
@@ -342,6 +356,7 @@ class TestCollectionEndpoints:
                 "name": "Duplicate Test Col",
                 "created_by": "Tester",
             },
+            headers=auth_headers,
         )
         assert response.status_code == 409
 
@@ -350,7 +365,7 @@ class TestCollectionEndpoints:
         assert response.status_code == 200
         assert isinstance(response.json(), list)
 
-    def test_collection_with_items(self, test_client):
+    def test_collection_with_items(self, test_client, auth_headers):
         col_resp = test_client.post(
             "/collections",
             json={
@@ -358,18 +373,21 @@ class TestCollectionEndpoints:
                 "description": "Testing item addition.",
                 "created_by": "Item Tester",
             },
+            headers=auth_headers,
         )
         col_id = col_resp.json()["id"]
 
         add_resp = test_client.post(
             f"/collections/{col_id}/items",
             json={"track_id": 1, "note": "Opening track."},
+            headers=auth_headers,
         )
         assert add_resp.status_code == 201
 
         add_resp2 = test_client.post(
             f"/collections/{col_id}/items",
             json={"track_id": 2},
+            headers=auth_headers,
         )
         assert add_resp2.status_code == 201
 
@@ -377,40 +395,51 @@ class TestCollectionEndpoints:
         assert detail["item_count"] == 2
         assert len(detail["items"]) == 2
 
-    def test_add_duplicate_track_to_collection(self, test_client):
+    def test_add_duplicate_track_to_collection(self, test_client, auth_headers):
         col_resp = test_client.post(
             "/collections",
             json={
                 "name": "Dup Item Test",
                 "created_by": "Tester",
             },
+            headers=auth_headers,
         )
         col_id = col_resp.json()["id"]
-        test_client.post(f"/collections/{col_id}/items", json={"track_id": 1})
-        dup_resp = test_client.post(f"/collections/{col_id}/items", json={"track_id": 1})
+        test_client.post(
+            f"/collections/{col_id}/items",
+            json={"track_id": 1},
+            headers=auth_headers,
+        )
+        dup_resp = test_client.post(
+            f"/collections/{col_id}/items",
+            json={"track_id": 1},
+            headers=auth_headers,
+        )
         assert dup_resp.status_code == 409
 
-    def test_add_track_to_nonexistent_collection(self, test_client):
+    def test_add_track_to_nonexistent_collection(self, test_client, auth_headers):
         response = test_client.post(
             "/collections/9999/items",
             json={"track_id": 1},
+            headers=auth_headers,
         )
         assert response.status_code == 404
 
-    def test_delete_collection(self, test_client):
+    def test_delete_collection(self, test_client, auth_headers):
         col_resp = test_client.post(
             "/collections",
             json={
                 "name": "To Delete Collection",
                 "created_by": "Deleter",
             },
+            headers=auth_headers,
         )
         col_id = col_resp.json()["id"]
-        delete_resp = test_client.delete(f"/collections/{col_id}")
+        delete_resp = test_client.delete(f"/collections/{col_id}", headers=auth_headers)
         assert delete_resp.status_code == 204
 
-    def test_delete_collection_not_found(self, test_client):
-        response = test_client.delete("/collections/9999")
+    def test_delete_collection_not_found(self, test_client, auth_headers):
+        response = test_client.delete("/collections/9999", headers=auth_headers)
         assert response.status_code == 404
 
     def test_get_collection_not_found(self, test_client):
@@ -425,7 +454,7 @@ class TestCollectionEndpoints:
 class TestAnalyticsEndpoints:
     """Tests for analytics and summary endpoints."""
 
-    def test_top_rated_tracks(self, test_client):
+    def test_top_rated_tracks(self, test_client, auth_headers):
         test_client.post(
             "/reviews",
             json={
@@ -434,6 +463,7 @@ class TestAnalyticsEndpoints:
                 "rating": 5,
                 "comment": "Spacious and beautiful ambient track.",
             },
+            headers=auth_headers,
         )
         response = test_client.get("/analytics/top-rated-tracks")
         assert response.status_code == 200
@@ -477,13 +507,99 @@ class TestAnalyticsEndpoints:
 
 
 # ---------------------------------------------------------------------------
+# Authentication tests
+# ---------------------------------------------------------------------------
+
+class TestAuthentication:
+    """Tests for API key authentication on write operations."""
+
+    def test_create_review_without_api_key(self, test_client):
+        """Write operations should return 401 without an API key."""
+        response = test_client.post(
+            "/reviews",
+            json={
+                "track_id": 1,
+                "reviewer_name": "No Auth",
+                "rating": 3,
+                "comment": "Should be rejected.",
+            },
+        )
+        assert response.status_code == 401
+        body = response.json()
+        assert body["error"] == "authentication_required"
+
+    def test_create_review_with_invalid_api_key(self, test_client):
+        """Write operations should return 403 with an invalid API key."""
+        response = test_client.post(
+            "/reviews",
+            json={
+                "track_id": 1,
+                "reviewer_name": "Bad Key",
+                "rating": 3,
+                "comment": "Should be rejected.",
+            },
+            headers={"X-API-Key": "invalid-key-12345"},
+        )
+        assert response.status_code == 403
+        body = response.json()
+        assert body["error"] == "invalid_api_key"
+
+    def test_create_tag_without_api_key(self, test_client):
+        """Tag creation should require authentication."""
+        response = test_client.post(
+            "/tags",
+            json={
+                "track_id": 1,
+                "tag_name": "no-auth-tag",
+                "created_by": "Nobody",
+            },
+        )
+        assert response.status_code == 401
+
+    def test_delete_review_without_api_key(self, test_client):
+        """Delete operations should require authentication."""
+        response = test_client.delete("/reviews/1")
+        assert response.status_code == 401
+
+    def test_create_collection_without_api_key(self, test_client):
+        """Collection creation should require authentication."""
+        response = test_client.post(
+            "/collections",
+            json={
+                "name": "Unauth Collection",
+                "created_by": "Nobody",
+            },
+        )
+        assert response.status_code == 401
+
+    def test_read_endpoints_remain_public(self, test_client):
+        """GET endpoints should NOT require authentication."""
+        public_endpoints = [
+            "/",
+            "/health",
+            "/genres",
+            "/tracks",
+            "/reviews",
+            "/tags",
+            "/collections",
+            "/analytics/genre-summary",
+            "/analytics/top-tags",
+            "/analytics/mood-distribution",
+            "/analytics/review-activity",
+        ]
+        for endpoint in public_endpoints:
+            response = test_client.get(endpoint)
+            assert response.status_code == 200, f"GET {endpoint} should be public but returned {response.status_code}"
+
+
+# ---------------------------------------------------------------------------
 # Validation edge cases
 # ---------------------------------------------------------------------------
 
 class TestValidation:
     """Tests for input validation and error handling."""
 
-    def test_review_comment_too_short(self, test_client):
+    def test_review_comment_too_short(self, test_client, auth_headers):
         response = test_client.post(
             "/reviews",
             json={
@@ -492,10 +608,11 @@ class TestValidation:
                 "rating": 3,
                 "comment": "ab",
             },
+            headers=auth_headers,
         )
         assert response.status_code == 422
 
-    def test_review_rating_too_low(self, test_client):
+    def test_review_rating_too_low(self, test_client, auth_headers):
         response = test_client.post(
             "/reviews",
             json={
@@ -504,10 +621,11 @@ class TestValidation:
                 "rating": 0,
                 "comment": "Rating zero is invalid.",
             },
+            headers=auth_headers,
         )
         assert response.status_code == 422
 
-    def test_tag_name_too_long(self, test_client):
+    def test_tag_name_too_long(self, test_client, auth_headers):
         response = test_client.post(
             "/tags",
             json={
@@ -515,19 +633,41 @@ class TestValidation:
                 "tag_name": "x" * 51,
                 "created_by": "Validator",
             },
+            headers=auth_headers,
         )
         assert response.status_code == 422
 
-    def test_collection_name_empty(self, test_client):
+    def test_collection_name_empty(self, test_client, auth_headers):
         response = test_client.post(
             "/collections",
             json={
                 "name": "",
                 "created_by": "Validator",
             },
+            headers=auth_headers,
         )
         assert response.status_code == 422
 
     def test_tracks_limit_exceeds_max(self, test_client):
         response = test_client.get("/tracks?limit=200")
         assert response.status_code == 422
+
+    def test_structured_error_response_format(self, test_client, auth_headers):
+        """Verify that validation errors return structured JSON with details."""
+        response = test_client.post(
+            "/reviews",
+            json={
+                "track_id": 1,
+                "reviewer_name": "Validator",
+                "rating": 0,
+                "comment": "ab",
+            },
+            headers=auth_headers,
+        )
+        assert response.status_code == 422
+        body = response.json()
+        assert "error" in body
+        assert body["error"] == "validation_error"
+        assert "details" in body
+        assert isinstance(body["details"], list)
+        assert len(body["details"]) >= 1

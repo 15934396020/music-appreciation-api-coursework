@@ -16,7 +16,61 @@ http://127.0.0.1:8000
 
 ## Authentication
 
-Currently, the API does not require authentication. All endpoints are publicly accessible for demonstration and coursework evaluation purposes.
+The API uses **API key authentication** for write operations. All read operations (GET) remain publicly accessible.
+
+### How It Works
+
+- **Write operations** (POST, PUT, DELETE) require a valid API key passed via the `X-API-Key` HTTP header.
+- **Read operations** (GET) do not require authentication.
+
+### Demo API Key
+
+```
+music-api-demo-key-2026
+```
+
+### Example Request with Authentication
+
+```bash
+curl -X POST http://127.0.0.1:8000/reviews \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: music-api-demo-key-2026" \
+  -d '{"track_id": 1, "reviewer_name": "Alice", "rating": 5, "comment": "A masterpiece"}'
+```
+
+### Error Responses
+
+- **401 Unauthorized** — API key is missing:
+  ```json
+  {"error": "authentication_required", "message": "Missing API key. Provide a valid key via the X-API-Key header."}
+  ```
+- **403 Forbidden** — API key is invalid:
+  ```json
+  {"error": "invalid_api_key", "message": "The provided API key is not valid."}
+  ```
+
+## Error Response Format
+
+All errors return a consistent JSON structure:
+
+```json
+{
+  "error": "not_found",
+  "message": "Review not found"
+}
+```
+
+Validation errors include additional detail:
+
+```json
+{
+  "error": "validation_error",
+  "message": "Request validation failed. Check the 'details' field for specifics.",
+  "details": [
+    {"field": "body -> rating", "message": "Input should be less than or equal to 5", "type": "less_than_equal"}
+  ]
+}
+```
 
 ## Endpoints
 
@@ -30,7 +84,8 @@ Returns a welcome message and links to the interactive documentation.
     "message": "Music Appreciation and Discovery API is running.",
     "docs": "/docs",
     "redoc": "/redoc",
-    "version": "0.2.0"
+    "version": "0.3.0",
+    "authentication": "Write operations require X-API-Key header."
   }
   ```
 
@@ -95,8 +150,9 @@ Retrieves a specific track by its ID.
 
 ### 4. Reviews
 
-#### `POST /reviews`
+#### `POST /reviews` (Requires API Key)
 Creates a new review for a track.
+- **Headers:** `X-API-Key: <your-api-key>`
 - **Request Body:**
   ```json
   {
@@ -127,8 +183,9 @@ Retrieves a specific review by its ID.
 - **Response (200 OK):** Review object.
 - **Response (404 Not Found):** If the review does not exist.
 
-#### `PUT /reviews/{review_id}`
+#### `PUT /reviews/{review_id}` (Requires API Key)
 Updates an existing review. Supports partial updates.
+- **Headers:** `X-API-Key: <your-api-key>`
 - **Parameters:**
   - `review_id` (path, integer): The ID of the review.
 - **Request Body:** (All fields optional)
@@ -141,19 +198,22 @@ Updates an existing review. Supports partial updates.
 - **Response (200 OK):** The updated Review object.
 - **Response (404 Not Found):** If the review does not exist.
 
-#### `DELETE /reviews/{review_id}`
+#### `DELETE /reviews/{review_id}` (Requires API Key)
 Deletes a review by its ID.
+- **Headers:** `X-API-Key: <your-api-key>`
 - **Parameters:**
   - `review_id` (path, integer): The ID of the review.
 - **Response (204 No Content):** Successful deletion.
+- **Response (401 Unauthorized):** If the API key is missing.
 - **Response (404 Not Found):** If the review does not exist.
 
 ---
 
 ### 5. Tags
 
-#### `POST /tags`
+#### `POST /tags` (Requires API Key)
 Creates a new user tag for a track.
+- **Headers:** `X-API-Key: <your-api-key>`
 - **Request Body:**
   ```json
   {
@@ -172,19 +232,22 @@ Retrieves a list of user tags, optionally filtered by track.
   - `track_id` (integer, optional): Filter tags by track ID.
 - **Response (200 OK):** Array of Tag objects.
 
-#### `DELETE /tags/{tag_id}`
+#### `DELETE /tags/{tag_id}` (Requires API Key)
 Deletes a user tag by its ID.
+- **Headers:** `X-API-Key: <your-api-key>`
 - **Parameters:**
   - `tag_id` (path, integer): The ID of the tag.
 - **Response (204 No Content):** Successful deletion.
+- **Response (401 Unauthorized):** If the API key is missing.
 - **Response (404 Not Found):** If the tag does not exist.
 
 ---
 
 ### 6. Collections
 
-#### `POST /collections`
+#### `POST /collections` (Requires API Key)
 Creates a new track collection.
+- **Headers:** `X-API-Key: <your-api-key>`
 - **Request Body:**
   ```json
   {
@@ -207,8 +270,9 @@ Retrieves a specific collection along with its track items.
 - **Response (200 OK):** Collection object including an array of `items`.
 - **Response (404 Not Found):** If the collection does not exist.
 
-#### `POST /collections/{collection_id}/items`
+#### `POST /collections/{collection_id}/items` (Requires API Key)
 Adds a track to an existing collection.
+- **Headers:** `X-API-Key: <your-api-key>`
 - **Parameters:**
   - `collection_id` (path, integer): The ID of the collection.
 - **Request Body:**
@@ -222,15 +286,18 @@ Adds a track to an existing collection.
 - **Response (404 Not Found):** If the collection or track does not exist.
 - **Response (409 Conflict):** If the track is already in the collection.
 
-#### `DELETE /collections/{collection_id}`
+#### `DELETE /collections/{collection_id}` (Requires API Key)
 Deletes a collection and all its items.
+- **Headers:** `X-API-Key: <your-api-key>`
 - **Parameters:**
   - `collection_id` (path, integer): The ID of the collection.
 - **Response (204 No Content):** Successful deletion.
+- **Response (401 Unauthorized):** If the API key is missing.
 - **Response (404 Not Found):** If the collection does not exist.
 
-#### `DELETE /collections/{collection_id}/items/{item_id}`
+#### `DELETE /collections/{collection_id}/items/{item_id}` (Requires API Key)
 Removes a specific track item from a collection.
+- **Headers:** `X-API-Key: <your-api-key>`
 - **Parameters:**
   - `collection_id` (path, integer): The ID of the collection.
   - `item_id` (path, integer): The ID of the collection item.

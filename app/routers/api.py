@@ -4,6 +4,7 @@ from sqlalchemy import func
 from sqlalchemy.orm import Session, joinedload
 from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
 
+from app.auth import require_api_key
 from app.database import get_db
 from app.models.entities import Collection, CollectionItem, Genre, Review, Track, UserTag
 from app.schemas.entities import (
@@ -118,9 +119,18 @@ def get_track(track_id: int, db: Session = Depends(get_db)):
 # Reviews (main CRUD resource)
 # ---------------------------------------------------------------------------
 
-@router.post("/reviews", response_model=ReviewRead, status_code=status.HTTP_201_CREATED, tags=["Reviews"])
-def create_review(payload: ReviewCreate, db: Session = Depends(get_db)):
-    """Create a new review for a track."""
+@router.post(
+    "/reviews",
+    response_model=ReviewRead,
+    status_code=status.HTTP_201_CREATED,
+    tags=["Reviews"],
+)
+def create_review(
+    payload: ReviewCreate,
+    db: Session = Depends(get_db),
+    _api_key: str = Depends(require_api_key),
+):
+    """Create a new review for a track. Requires API key."""
     track = db.query(Track).filter(Track.id == payload.track_id).first()
     if not track:
         raise HTTPException(status_code=404, detail="Track not found")
@@ -164,8 +174,13 @@ def get_review(review_id: int, db: Session = Depends(get_db)):
 
 
 @router.put("/reviews/{review_id}", response_model=ReviewRead, tags=["Reviews"])
-def update_review(review_id: int, payload: ReviewUpdate, db: Session = Depends(get_db)):
-    """Update an existing review (partial update supported)."""
+def update_review(
+    review_id: int,
+    payload: ReviewUpdate,
+    db: Session = Depends(get_db),
+    _api_key: str = Depends(require_api_key),
+):
+    """Update an existing review (partial update supported). Requires API key."""
     review = db.query(Review).filter(Review.id == review_id).first()
     if not review:
         raise HTTPException(status_code=404, detail="Review not found")
@@ -182,8 +197,12 @@ def update_review(review_id: int, payload: ReviewUpdate, db: Session = Depends(g
 
 
 @router.delete("/reviews/{review_id}", status_code=status.HTTP_204_NO_CONTENT, tags=["Reviews"])
-def delete_review(review_id: int, db: Session = Depends(get_db)):
-    """Delete a review by its ID."""
+def delete_review(
+    review_id: int,
+    db: Session = Depends(get_db),
+    _api_key: str = Depends(require_api_key),
+):
+    """Delete a review by its ID. Requires API key."""
     review = db.query(Review).filter(Review.id == review_id).first()
     if not review:
         raise HTTPException(status_code=404, detail="Review not found")
@@ -198,9 +217,18 @@ def delete_review(review_id: int, db: Session = Depends(get_db)):
 # Tags
 # ---------------------------------------------------------------------------
 
-@router.post("/tags", response_model=UserTagRead, status_code=status.HTTP_201_CREATED, tags=["Tags"])
-def create_tag(payload: UserTagCreate, db: Session = Depends(get_db)):
-    """Create a user tag for a track."""
+@router.post(
+    "/tags",
+    response_model=UserTagRead,
+    status_code=status.HTTP_201_CREATED,
+    tags=["Tags"],
+)
+def create_tag(
+    payload: UserTagCreate,
+    db: Session = Depends(get_db),
+    _api_key: str = Depends(require_api_key),
+):
+    """Create a user tag for a track. Requires API key."""
     track = db.query(Track).filter(Track.id == payload.track_id).first()
     if not track:
         raise HTTPException(status_code=404, detail="Track not found")
@@ -233,8 +261,12 @@ def list_tags(
 
 
 @router.delete("/tags/{tag_id}", status_code=status.HTTP_204_NO_CONTENT, tags=["Tags"])
-def delete_tag(tag_id: int, db: Session = Depends(get_db)):
-    """Delete a user tag by its ID."""
+def delete_tag(
+    tag_id: int,
+    db: Session = Depends(get_db),
+    _api_key: str = Depends(require_api_key),
+):
+    """Delete a user tag by its ID. Requires API key."""
     tag = db.query(UserTag).filter(UserTag.id == tag_id).first()
     if not tag:
         raise HTTPException(status_code=404, detail="Tag not found")
@@ -247,9 +279,18 @@ def delete_tag(tag_id: int, db: Session = Depends(get_db)):
 # Collections
 # ---------------------------------------------------------------------------
 
-@router.post("/collections", response_model=CollectionRead, status_code=status.HTTP_201_CREATED, tags=["Collections"])
-def create_collection(payload: CollectionCreate, db: Session = Depends(get_db)):
-    """Create a new track collection."""
+@router.post(
+    "/collections",
+    response_model=CollectionRead,
+    status_code=status.HTTP_201_CREATED,
+    tags=["Collections"],
+)
+def create_collection(
+    payload: CollectionCreate,
+    db: Session = Depends(get_db),
+    _api_key: str = Depends(require_api_key),
+):
+    """Create a new track collection. Requires API key."""
     existing = db.query(Collection).filter(Collection.name == payload.name).first()
     if existing:
         raise HTTPException(status_code=409, detail="Collection name already exists")
@@ -307,13 +348,18 @@ def get_collection(collection_id: int, db: Session = Depends(get_db)):
     }
 
 
-@router.post("/collections/{collection_id}/items", status_code=status.HTTP_201_CREATED, tags=["Collections"])
+@router.post(
+    "/collections/{collection_id}/items",
+    status_code=status.HTTP_201_CREATED,
+    tags=["Collections"],
+)
 def add_track_to_collection(
     collection_id: int,
     payload: CollectionItemCreate,
     db: Session = Depends(get_db),
+    _api_key: str = Depends(require_api_key),
 ):
-    """Add a track to an existing collection."""
+    """Add a track to an existing collection. Requires API key."""
     collection = db.query(Collection).filter(Collection.id == collection_id).first()
     if not collection:
         raise HTTPException(status_code=404, detail="Collection not found")
@@ -345,9 +391,17 @@ def add_track_to_collection(
     }
 
 
-@router.delete("/collections/{collection_id}", status_code=status.HTTP_204_NO_CONTENT, tags=["Collections"])
-def delete_collection(collection_id: int, db: Session = Depends(get_db)):
-    """Delete a collection and all its items."""
+@router.delete(
+    "/collections/{collection_id}",
+    status_code=status.HTTP_204_NO_CONTENT,
+    tags=["Collections"],
+)
+def delete_collection(
+    collection_id: int,
+    db: Session = Depends(get_db),
+    _api_key: str = Depends(require_api_key),
+):
+    """Delete a collection and all its items. Requires API key."""
     collection = db.query(Collection).filter(Collection.id == collection_id).first()
     if not collection:
         raise HTTPException(status_code=404, detail="Collection not found")
@@ -366,8 +420,9 @@ def remove_item_from_collection(
     collection_id: int,
     item_id: int,
     db: Session = Depends(get_db),
+    _api_key: str = Depends(require_api_key),
 ):
-    """Remove a track item from a collection."""
+    """Remove a track item from a collection. Requires API key."""
     item = (
         db.query(CollectionItem)
         .filter(

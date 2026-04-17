@@ -158,3 +158,78 @@ This final update completed the LaTeX conversion of the technical report, pushed
 ### Current Project State
 
 All core deliverables (code, tests, API docs, technical report, slides) are complete and pushed to GitHub. The remaining tasks are format conversions (HTML slides → PPTX) and supplementary materials (GenAI conversation log). The project is ready for the next account to finalize submission materials and help prepare for the oral examination.
+
+## Session 3 — 2026-04-17
+
+### Summary
+
+This session added API key authentication, structured error handling, expanded the test suite, created the PPTX presentation, generated the GenAI conversation log, and updated all documentation. All core deliverables are now complete.
+
+### Completed Work
+
+| Type | Details |
+|---|---|
+| Authentication | Created `app/auth.py` — API key authentication via `X-API-Key` header for all write operations (POST, PUT, DELETE). Read operations remain public. |
+| Error Handling | Created `app/errors.py` — Custom exception handlers for consistent JSON error responses with `error`, `message`, and `details` fields. |
+| Main App Update | Updated `app/main.py` to integrate error handlers, bumped version to 0.3.0. |
+| Router Update | Updated `app/routers/api.py` to add `require_api_key` dependency to all write endpoints. |
+| Test Expansion | Expanded from 48 to **55 tests** across **9 test classes**. Added `TestAuthentication` class (6 tests) covering 401/403 responses and public access verification. Updated all write-operation tests to include auth headers. |
+| PPTX Presentation | Created `scripts/create_pptx.py` and generated `docs/PRESENTATION.pptx` — 12 professional slides with colour-coded tables, structured layout, and comprehensive content. |
+| GenAI Log | Created `docs/GENAI_CONVERSATION_LOG.md` and `.pdf` — Detailed AI usage documentation across all 3 sessions. |
+| Technical Report | Updated `docs/TECHNICAL_REPORT.md` — Added authentication section (5.2), structured error handling section (5.3), fixed track count (25→29), expanded GenAI declaration. Regenerated PDF. |
+| API Documentation | Updated `docs/API_DOCUMENTATION.md` — Added authentication section, error response format, marked all protected endpoints. Regenerated PDF. |
+| README | Updated `README.md` — Added authentication section with demo key and curl example, updated test count, added new files to project structure. |
+| Handover | Updated all handover documents (CURRENT_STATUS, NEXT_ACTIONS, SESSION_LOG). |
+| GitHub Push | Pushed all Session 3 changes to GitHub. |
+
+### Key Technical Decisions
+
+| Area | Decision | Rationale |
+|---|---|---|
+| Auth Scheme | API Key via header (not OAuth2/JWT) | Meets rubric requirement for authentication while remaining simple for coursework demo and examiner testing |
+| Auth Scope | Write-only protection | GET endpoints remain public for easy browsing; POST/PUT/DELETE require key — matches real-world API patterns |
+| Error Format | Structured JSON with `error`, `message`, `details` | Machine-readable error codes improve developer experience and demonstrate understanding of API design best practices |
+| PPTX Generation | python-pptx with custom styling | Programmatic generation ensures consistency and reproducibility |
+
+### Files Created
+
+| File | Description |
+|---|---|
+| `app/auth.py` | API key authentication module |
+| `app/errors.py` | Structured error handling module |
+| `docs/PRESENTATION.pptx` | 12-slide PowerPoint presentation |
+| `docs/GENAI_CONVERSATION_LOG.md` | GenAI usage documentation (Markdown) |
+| `docs/GENAI_CONVERSATION_LOG.pdf` | GenAI usage documentation (PDF) |
+| `scripts/create_pptx.py` | PPTX generation script |
+
+### Files Modified
+
+| File | Changes |
+|---|---|
+| `app/main.py` | Added error handler registration, version bump to 0.3.0 |
+| `app/routers/api.py` | Added `require_api_key` dependency to all write endpoints |
+| `tests/conftest.py` | Added `auth_headers` fixture and `DEMO_API_KEY` constant |
+| `tests/test_api.py` | 48→55 tests, added `TestAuthentication` class, auth headers on writes |
+| `docs/TECHNICAL_REPORT.md` + `.pdf` | Auth section, error handling section, track count fix |
+| `docs/API_DOCUMENTATION.md` + `.pdf` | Auth docs, error format, protected endpoint markers |
+| `README.md` | Auth section, test count update, new files in structure |
+
+### Current Project State
+
+All core deliverables are complete and pushed to GitHub:
+- 25 API endpoints with authentication
+- 55 automated tests (all passing)
+- Technical report PDF
+- API documentation PDF
+- 12-slide PPTX presentation
+- GenAI conversation log PDF
+- Comprehensive README
+
+The remaining work is Minerva submission (user action) and oral exam preparation.
+
+### Recommendation for Next Session
+
+1. Help user prepare for the 10-minute oral examination.
+2. Assist with Minerva submission if needed.
+3. Optional: Add pytest-cov, Docker support, or rate limiting for higher marks.
+4. Do NOT modify working code unless there is a specific bug to fix.

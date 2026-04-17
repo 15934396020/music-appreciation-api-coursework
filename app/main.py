@@ -6,6 +6,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.database import Base, SessionLocal, engine
+from app.errors import register_error_handlers
 from app.models import Collection, CollectionItem, Genre, Review, Track, UserTag
 from app.routers.api import router as api_router
 from app.seed import seed_initial_data
@@ -28,11 +29,15 @@ app = FastAPI(
     description=(
         "A coursework API for track exploration, reviews, tags, "
         "collections, and simple analytics. Built with FastAPI, "
-        "SQLAlchemy, and SQLite."
+        "SQLAlchemy, and SQLite. Write operations require an API key "
+        "via the X-API-Key header."
     ),
-    version="0.2.0",
+    version="0.3.0",
     lifespan=lifespan,
 )
+
+# Register structured error handlers
+register_error_handlers(app)
 
 app.add_middleware(
     CORSMiddleware,
@@ -50,7 +55,8 @@ def root() -> dict:
         "message": "Music Appreciation and Discovery API is running.",
         "docs": "/docs",
         "redoc": "/redoc",
-        "version": "0.2.0",
+        "version": "0.3.0",
+        "authentication": "Write operations require X-API-Key header.",
     }
 
 
