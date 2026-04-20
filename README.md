@@ -1,5 +1,21 @@
 # Music Appreciation and Discovery API
 
+[![GitHub repository](https://img.shields.io/badge/GitHub-15934396020%2Fmusic--appreciation--api--coursework-0369A1?logo=github)](https://github.com/15934396020/music-appreciation-api-coursework) [![Live demo](https://img.shields.io/badge/Live-PythonAnywhere-16A34A)](https://weidademiaoxiao.pythonanywhere.com)
+
+## Coursework Submission Links (XJCO3011 — Coursework 1, Section 7a)
+
+| Deliverable | Location |
+|---|---|
+| Public GitHub repository | <https://github.com/15934396020/music-appreciation-api-coursework> |
+| API Documentation (PDF) | [`docs/API_DOCUMENTATION.pdf`](docs/API_DOCUMENTATION.pdf) |
+| Technical Report (PDF) | [`docs/TECHNICAL_REPORT.pdf`](docs/TECHNICAL_REPORT.pdf) |
+| Presentation slides (PPTX) | [`docs/PRESENTATION_OPTIMIZED.pptx`](docs/PRESENTATION_OPTIMIZED.pptx) |
+| Live deployment | <https://weidademiaoxiao.pythonanywhere.com> |
+| Interactive API docs (Swagger) | <https://weidademiaoxiao.pythonanywhere.com/docs> |
+| Interactive API docs (ReDoc) | <https://weidademiaoxiao.pythonanywhere.com/redoc> |
+
+All artefacts required by the Coursework Brief (code with commit history, API documentation, technical report, and presentation slides) are mirrored in this repository so that examiners can verify every deliverable from a single URL.
+
 ## Project Overview
 
 This project is a coursework API for **music appreciation and discovery**, built as part of the XJCO3011 Web Services and Web Data module. It provides a data-driven web service that supports track browsing, genre exploration, review management (full CRUD), user-generated tags, personal collections, and analytical endpoints. **Write operations are protected by API key authentication**, and all errors return structured JSON responses. The implementation prioritises clarity, stability, and explainability.
