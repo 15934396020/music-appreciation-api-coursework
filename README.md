@@ -72,10 +72,7 @@ music-appreciation-api-coursework/
 ├── tests/
 │   ├── conftest.py           # Shared test fixtures (incl. auth headers)
 │   └── test_api.py           # 55 comprehensive test cases
-├── docs/                     # Reports, API docs, presentation, GenAI log
-├── handover/                 # Cross-session handover documents
-├── scripts/
-│   └── create_pptx.py        # PPTX generation script
+├── docs/                     # Technical report, API documentation, slides, GenAI log (PDF)
 ├── requirements.txt
 ├── pytest.ini
 └── README.md
@@ -160,15 +157,6 @@ All **55 tests** across **9 test classes** should pass, covering general endpoin
 | GET | `/analytics/top-tags` | No | Most-used tags |
 | GET | `/analytics/mood-distribution` | No | Mood distribution |
 | GET | `/analytics/review-activity` | No | Review activity summary |
-
-## Multi-Account Collaboration
-
-This repository is structured for continuation across multiple sessions. Every new session must read the files inside `handover/` before changing code, and every ending session must update those files before stopping. Start with:
-
-1. `handover/FOR_NEXT_ACCOUNT.md`
-2. `handover/CURRENT_STATUS.md`
-3. `handover/NEXT_ACTIONS.md`
-4. `handover/SESSION_LOG.md`
 
 ## Licence
 

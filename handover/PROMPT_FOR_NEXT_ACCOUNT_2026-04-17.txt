@@ -1,5 +1,0 @@
-这是我们的课程项目仓库：https://github.com/15934396020/music-appreciation-api-coursework 。请先阅读仓库里的 handover/FOR_NEXT_ACCOUNT.md，再查看 handover/CURRENT_STATUS.md 和 handover/NEXT_ACTIONS.md。这个项目是 Music Appreciation and Discovery API，目前已经完成可运行原型、25个API接口、55个自动化测试、API Key认证、结构化错误处理、技术报告（PDF）、API文档（PDF）、12页PPTX演示幻灯片、GenAI对话日志，并且已经成功部署到外部平台：https://weidademiaoxiao.pythonanywhere.com 。最新 GitHub 提交是 5386921。请不要重做已经完成的部分，尤其不要重复部署、不要重写文档，而是直接进入最后的收尾支持：
-1. 帮我梳理 Minerva 需要提交的材料；
-2. 帮我准备 5 分钟 presentation + 5 分钟 Q&A；
-3. 如有必要，只做一次轻量级线上验证。
-本轮结束前，请继续同步更新 handover 文件，方便后续账号接力。
